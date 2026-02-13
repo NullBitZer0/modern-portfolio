@@ -15,28 +15,57 @@ An interactive RAG-based assistant that answers questions about my skills and ex
 ### AI News Automation
 End-to-end automated news aggregation pipeline that fetches, summarizes, and publishes AI news. Powered by LLMs and n8n workflow automation.
 
-### CarbonBridge Platform
-A comprehensive platform for tracking and reducing carbon footprints with AI-driven analysis, aiming for sustainability and environmental impact reduction.
+### AI Movie Recommendation System
+Personalized movie recommendations powered by collaborative filtering and content-based AI models trained on real viewing data.
+
+## Homelab
+
+Self-hosted infrastructure running on Docker/Ubuntu Server with Nginx Proxy Manager for reverse proxying and SSL.
+
+- Grafana — Metrics visualization and dashboarding
+- Prometheus — Time-series database for metrics
+- Uptime Kuma — Service uptime tracking
+- Nextcloud — Self-hosted cloud storage and collaboration
+- Portainer — Docker container management
+- Nginx Proxy Manager — Reverse proxy with SSL termination
+- Pi-hole — Network-wide ad blocking and DNS sinkhole
+- Jellyfin — Open-source media streaming server
+- Home Assistant — Smart home and IoT device management
+- Vaultwarden — Self-hosted password manager
 
 ## Experience
 
 ### AI Engineering Intern
 **Tech Company**
-Worked on developing RAG systems and integrating LLMs into production workflows. Built automated pipelines for data processing and content generation.
+Developed RAG systems, integrated LLMs into production workflows, built automated pipelines for data processing and content generation. Worked with vector databases, embedding models, and prompt engineering.
 
 ### Freelance Developer
 **Self-employed**
-Developed full-stack web applications for clients using Next.js, React, and Node.js. Focused on creating modern, responsive, and performant user interfaces.
+Full-stack web applications using Next.js, React, and Node.js. Custom automation workflows using n8n and API integrations.
 
 ## Education
 
 ### University
 **BSc (Hons) in Information Technology**
-Currently pursuing - Expected 2026
+Currently pursuing — Expected 2026
 
 ## Tech Stack
 
-Next.js, React, TypeScript, Python, Node.js, FastAPI, PostgreSQL, MongoDB, Firebase, Docker, AWS, Vercel, LangChain, Hugging Face, OpenAI, n8n, Git, Linux
+Next.js, React, TypeScript, Python, Node.js, FastAPI, PostgreSQL, MongoDB, Firebase, Docker, AWS, Vercel, LangChain, Hugging Face, OpenAI, TensorFlow, PyTorch, scikit-learn, Pandas, NumPy, Ollama, n8n, Git, Linux
+
+## Library
+
+### Dev
+- Designing Data-Intensive Applications — Martin Kleppmann
+- Clean Code — Robert C. Martin
+- The Pragmatic Programmer — David Thomas & Andrew Hunt
+- System Design Interview — Alex Xu
+
+### AI & ML
+- Hands-On Machine Learning — Aurélien Géron
+- Deep Learning — Ian Goodfellow et al.
+- AI Superpowers — Kai-Fu Lee
+- The Hundred-Page Machine Learning Book — Andriy Burkov
 
 ## Interests
 
@@ -44,6 +73,7 @@ Next.js, React, TypeScript, Python, Node.js, FastAPI, PostgreSQL, MongoDB, Fireb
 - Cloud Systems (AWS/Azure)
 - Automation Workflows
 - Modern Web Development
+- Self-Hosted Infrastructure & DevOps
 
 ## Get in Touch
 

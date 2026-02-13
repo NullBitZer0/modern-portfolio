@@ -39,6 +39,12 @@ const categories = [
             { name: "Hugging Face", slug: "huggingface" },
             { name: "LangChain", slug: "langchain" },
             { name: "OpenAI", slug: "openai" },
+            { name: "TensorFlow", slug: "tensorflow" },
+            { name: "PyTorch", slug: "pytorch" },
+            { name: "scikit-learn", slug: "scikitlearn" },
+            { name: "Pandas", slug: "pandas" },
+            { name: "NumPy", slug: "numpy" },
+            { name: "Ollama", slug: "ollama" },
         ]
     },
     {
