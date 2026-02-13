@@ -547,25 +547,42 @@ export default function Home() {
           <AnimatePresence>
             {showOnboarding && (
               <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 4 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="absolute bottom-full mb-3 right-1/2 translate-x-1/2 whitespace-nowrap z-50"
+                initial={{ opacity: 0, y: 12, scale: 0.95 }}
+                animate={{
+                  opacity: 1,
+                  y: [0, -4, 0],
+                  scale: 1,
+                }}
+                exit={{ opacity: 0, y: 6, scale: 0.95 }}
+                transition={{
+                  opacity: { duration: 0.4 },
+                  scale: { duration: 0.4 },
+                  y: {
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                }}
+                className="absolute bottom-full mb-4 right-1/2 translate-x-1/2 whitespace-nowrap z-50"
               >
                 <Link
                   href="/ai-assistant"
                   onClick={dismissOnboarding}
-                  className="group flex items-center gap-2 rounded-full border border-gray-200 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/90 backdrop-blur-md px-4 py-2 shadow-lg transition-all hover:border-gray-400 dark:hover:border-zinc-500 hover:shadow-xl"
+                  className="group flex items-center gap-2.5 rounded-full border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 backdrop-blur-md px-5 py-2.5 shadow-xl transition-all hover:border-black dark:hover:border-white hover:shadow-2xl"
                 >
-                  <span className="text-xs font-medium text-gray-600 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors">
+                  {/* Pulsing green dot */}
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                  </span>
+                  <span className="text-sm font-semibold text-black dark:text-white">
                     Ask my AI about me
                   </span>
-                  <ArrowRight className="h-3 w-3 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <ArrowRight className="h-3.5 w-3.5 text-gray-500 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all duration-200" />
                 </Link>
                 {/* Caret arrow */}
-                <div className="absolute left-1/2 -translate-x-1/2 -bottom-[5px] h-0 w-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-200 dark:border-t-zinc-700" />
-                <div className="absolute left-1/2 -translate-x-1/2 -bottom-[4px] h-0 w-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-white dark:border-t-zinc-900" />
+                <div className="absolute left-1/2 -translate-x-1/2 -bottom-[6px] h-0 w-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[7px] border-t-gray-300 dark:border-t-zinc-600" />
+                <div className="absolute left-1/2 -translate-x-1/2 -bottom-[5px] h-0 w-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-white dark:border-t-zinc-900" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -576,9 +593,12 @@ export default function Home() {
             title="AI Assistant"
           >
             <Bot className="h-5 w-5" />
-            {/* Pulse ring while onboarding is visible */}
+            {/* Glow rings while onboarding is visible */}
             {showOnboarding && (
-              <span className="absolute -inset-1.5 rounded-full border border-gray-300 dark:border-zinc-600 animate-ping opacity-30" />
+              <>
+                <span className="absolute -inset-2 rounded-full border-2 border-emerald-400/40 animate-ping" />
+                <span className="absolute -inset-1 rounded-full bg-emerald-400/10 animate-pulse" />
+              </>
             )}
           </Link>
         </div>

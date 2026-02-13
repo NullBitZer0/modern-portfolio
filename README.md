@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Adeesha Perera — Portfolio
 
-## Getting Started
+A minimalist, single-page developer portfolio built with Next.js, featuring an AI-powered assistant, interactive design elements, and dark/light theme support.
 
-First, run the development server:
+## ✨ Features
+
+- **Single-Page Design** — Clean, scrollable layout with all key sections in one page
+- **Dark/Light Theme** — System-aware toggle with smooth transitions
+- **AI Portfolio Assistant** — Interactive RAG-based chatbot that answers questions about projects and skills (`/ai-assistant`)
+- **AI News Automation** — Automated content pipeline demo powered by LLMs and n8n (`/ai-news`)
+- **Human/Agent Mode** — Toggle between rich UI and raw markdown view
+- **Easter Egg** — Click the profile image for a twinkling starfield effect
+- **Lofi Music Player** — Ambient background music with volume control
+- **Tech Stack Marquee** — Infinite-scroll display with expandable categorized grid
+- **Collapsible Experience Items** — Expandable cards with gradient fade-out
+- **Glass Island Navbar** — Fixed bottom navigation with social links and QR code
+- **Onboarding Tooltip** — Animated callout that highlights the AI Assistant for new visitors
+- **QR Code Modal** — Shareable portfolio link
+
+## 🛠 Tech Stack
+
+| Category | Technologies |
+|---|---|
+| **Framework** | [Next.js 16](https://nextjs.org) (App Router) |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com) |
+| **Animations** | [Framer Motion](https://motion.dev) |
+| **Theme** | [next-themes](https://github.com/pacocoursey/next-themes) |
+| **Icons** | [Lucide React](https://lucide.dev), [React Icons](https://react-icons.github.io/react-icons) |
+| **QR Code** | [qrcode.react](https://github.com/zpao/qrcode.react) |
+| **Font** | [DM Sans](https://fonts.google.com/specimen/DM+Sans) (Google Fonts) |
+| **Language** | TypeScript |
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm / yarn / pnpm
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/adeesha-dev/portfolio.git
+
+# Navigate to the project
+cd portfolio
+
+# Install dependencies
+npm install
+
+# Start the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── ai-assistant/     # AI chatbot page
+│   ├── ai-news/          # Automated news feed page
+│   ├── data/
+│   │   └── content.ts    # Agent mode markdown content
+│   ├── globals.css        # Global styles & animations
+│   ├── layout.tsx         # Root layout (DM Sans + ThemeProvider)
+│   ├── page.tsx           # Main single-page portfolio
+│   └── providers.tsx      # Theme provider wrapper
+├── components/
+│   ├── ExperienceItem.tsx # Collapsible experience card
+│   ├── TechStack.tsx      # Marquee + grid tech display
+│   └── ThemeToggle.tsx    # Dark/light mode switch
+└── lib/
+    └── utils.ts           # Utility functions
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Customization
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Personal Information
+Edit `src/app/page.tsx` to update:
+- Name, bio, and phonetic pronunciation
+- Social links (GitHub, LinkedIn, X/Twitter, email)
+- Experience entries and education
+- Featured projects
+- Library/reading list
 
-## Deploy on Vercel
+### Profile Photo
+Replace `public/me.png` with your own photo.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Lofi Music
+Add `public/lofi.mp3` for the background music player.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Agent Mode Content
+Edit `src/app/data/content.ts` to update the markdown content shown in agent mode.
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
