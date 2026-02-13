@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Linkedin, Bot, User, QrCode, X, Music, Pause, Mail, ArrowRight } from "lucide-react";
+import { Github, Linkedin, Bot, User, QrCode, X, Music, Pause, Mail, ArrowRight, Server } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import { ExperienceItem } from "@/components/ExperienceItem";
 import { TechStack } from "@/components/TechStack";
@@ -293,26 +293,46 @@ export default function Home() {
                   </p>
                 </Link>
 
-                <div className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
+                <Link href="/movie-recommendations" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-black dark:text-white">AI PDF Summarizer</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 dark:bg-zinc-800 px-2 py-1 rounded-full">Coming Soon</span>
+                    <span className="font-medium text-black dark:text-white">AI Movie Recommendation System</span>
+                    <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Upload any PDF and get an AI-generated summary instantly — powered by LLMs for intelligent document comprehension and key insight extraction.
+                    Get personalized movie recommendations powered by collaborative filtering and content-based AI models trained on real viewing data.
                   </p>
-                </div>
-
-                <div className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-black dark:text-white">AI Resume Analyzer</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 dark:bg-zinc-800 px-2 py-1 rounded-full">Coming Soon</span>
-                  </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Upload your resume and receive AI-powered feedback on structure, keyword optimization, and ATS compatibility to land more interviews.
-                  </p>
-                </div>
+                </Link>
               </div>
+            </div>
+
+            {/* Homelab Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Homelab
+              </h2>
+              <Link href="/homelab" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
+                <div className="flex items-start gap-4">
+                  <div className="p-2.5 rounded-xl bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 mt-0.5">
+                    <Server className="h-5 w-5" />
+                  </div>
+                  <div className="flex-grow">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-medium text-black dark:text-white">Self-Hosted Infrastructure</span>
+                      <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
+                    </div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                      A personal homelab running 10+ Docker containers — from monitoring with Grafana to self-hosted cloud storage, reverse proxying, and IoT automation.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Docker", "Grafana", "Nextcloud", "Nginx", "Pi-hole", "Portainer"].map((tag) => (
+                        <span key={tag} className="px-2 py-1 rounded-full text-[10px] font-medium bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-zinc-700">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </div>
 
             {/* Experience Section */}
