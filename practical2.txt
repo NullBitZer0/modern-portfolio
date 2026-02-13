@@ -1,0 +1,164 @@
+
+CREATE TYPE Dept_t; 
+/
+
+CREATE TYPE Emp_t AS OBJECT (
+    eno     NUMBER(4),
+    ename   VARCHAR2(15),
+    edept   REF Dept_t,
+    salary  NUMBER(8,2)
+);
+/
+
+CREATE TYPE Dept_t AS OBJECT (
+    dno     NUMBER(2),
+    dname   VARCHAR2(12),
+    mgr     REF Emp_t
+);
+/
+
+CREATE TYPE Proj_t AS OBJECT (
+    pno     NUMBER(4),
+    pname   VARCHAR2(15),
+    pdept   REF Dept_t,
+    budget  NUMBER(10,2)
+);
+/
+CREATE TABLE Dept OF Dept_t (
+    dno PRIMARY KEY,
+    mgr SCOPE IS Emp
+);
+
+CREATE TABLE Emp OF Emp_t (
+    eno PRIMARY KEY,
+    edept SCOPE IS Dept
+);
+
+CREATE TABLE Proj OF Proj_t (
+    pno PRIMARY KEY,
+    pdept SCOPE IS Dept
+);
+
+
+
+INSERT INTO Dept VALUES (Dept_t(10, 'IT', NULL));
+INSERT INTO Dept VALUES (Dept_t(20, 'HR', NULL));
+INSERT INTO Dept VALUES (Dept_t(30, 'Finance', NULL));
+
+
+
+INSERT INTO Emp
+SELECT Emp_t(1001, 'John', REF(d), 60000)
+FROM Dept d WHERE d.dno = 10;
+
+INSERT INTO Emp
+SELECT Emp_t(1002, 'Mary', REF(d), 75000)
+FROM Dept d WHERE d.dno = 20;
+
+INSERT INTO Emp
+SELECT Emp_t(1003, 'David', REF(d), 90000)
+FROM Dept d WHERE d.dno = 30;
+
+
+
+UPDATE Dept d
+SET d.mgr = (SELECT REF(e) FROM Emp e WHERE e.eno = 1001)
+WHERE d.dno = 10;
+
+UPDATE Dept d
+SET d.mgr = (SELECT REF(e) FROM Emp e WHERE e.eno = 1002)
+WHERE d.dno = 20;
+
+UPDATE Dept d
+SET d.mgr = (SELECT REF(e) FROM Emp e WHERE e.eno = 1003)
+WHERE d.dno = 30;
+
+
+
+INSERT INTO Proj
+SELECT Proj_t(501, 'AI System', REF(d), 80000)
+FROM Dept d WHERE d.dno = 10;
+
+INSERT INTO Proj
+SELECT Proj_t(502, 'HR Portal', REF(d), 40000)
+FROM Dept d WHERE d.dno = 20;
+
+INSERT INTO Proj
+SELECT Proj_t(503, 'FinTech', REF(d), 120000)
+FROM Dept d WHERE d.dno = 30;
+
+
+
+
+
+SELECT
+    d.dno,
+    DEREF(d.mgr).ename AS manager_name,
+    DEREF(d.mgr).salary AS manager_salary
+FROM Dept d;
+
+
+
+
+
+SELECT
+    p.pname,
+    DEREF(DEREF(p.pdept).mgr).ename AS manager_name
+FROM Proj p
+WHERE p.budget > 50000;
+
+
+
+SELECT
+    d.dno,
+    d.dname,
+    SUM(p.budget) AS total_budget
+FROM Dept d, Proj p
+WHERE p.pdept = REF(d)
+GROUP BY d.dno, d.dname;
+
+
+
+SELECT
+    DEREF(DEREF(p.pdept).mgr).ename AS manager_name
+FROM Proj p
+WHERE p.budget = (SELECT MAX(budget) FROM Proj);
+```
+
+
+
+
+**Print manager employee number and total controlling budget**
+
+
+SELECT
+    DEREF(d.mgr).eno AS manager_eno,
+    SUM(p.budget) AS total_budget
+FROM Dept d, Proj p
+WHERE p.pdept = REF(d)
+GROUP BY DEREF(d.mgr).eno
+HAVING SUM(p.budget) > 60000;
+
+
+
+SELECT
+    manager_eno,
+    total_budget
+FROM (
+    SELECT
+        DEREF(d.mgr).eno AS manager_eno,
+        SUM(p.budget) AS total_budget
+    FROM Dept d, Proj p
+    WHERE p.pdept = REF(d)
+    GROUP BY DEREF(d.mgr).eno
+)
+WHERE total_budget = (
+    SELECT MAX(total_budget)
+    FROM (
+        SELECT SUM(p.budget) AS total_budget
+        FROM Dept d, Proj p
+        WHERE p.pdept = REF(d)
+        GROUP BY DEREF(d.mgr).eno
+    )
+);
+

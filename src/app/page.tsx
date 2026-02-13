@@ -1,90 +1,619 @@
 "use client";
-import React from "react";
+
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { IconRobot, IconNews, IconLayoutGrid } from "@tabler/icons-react";
-import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
-import { EncryptedText } from "@/components/ui/encrypted-text";
-import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { Github, Linkedin, Bot, User, QrCode, X, Music, Pause, Mail, ArrowRight } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
+import { ExperienceItem } from "@/components/ExperienceItem";
+import { TechStack } from "@/components/TechStack";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { useTheme } from "next-themes";
+import { QRCodeSVG } from "qrcode.react";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { motion, AnimatePresence } from "framer-motion";
+
+import { getMarkdownContent } from "./data/content";
 
 export default function Home() {
-  const highlights = [
-    {
-      title: "AI Portfolio Assistant",
-      description: "Interact with my custom RAG-based AI to learn about my skills and experience.",
-      link: "/ai-assistant",
-      icon: <IconRobot className="w-8 h-8" />
-    },
-    {
-      title: "AI News Automation",
-      description: "Automated news aggregation pipeline powered by LLMs and n8n workflows.",
-      link: "/ai-news",
-      icon: <IconNews className="w-8 h-8" />
-    },
-    {
-      title: "CarbonBridge Platform",
-      description: "A comprehensive solution aiming for sustainability and carbon footprint reduction.",
-      link: "/projects",
-      icon: <IconLayoutGrid className="w-8 h-8" />
+  const [time, setTime] = useState<string>("");
+  const [showQR, setShowQR] = useState(false);
+  const [mode, setMode] = useState<"human" | "agent">("human");
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(
+        now.toLocaleTimeString("en-LK", {
+          timeZone: "Asia/Colombo",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        })
+      );
+    };
+
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const markdownContent = getMarkdownContent(time);
+
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
+  const [isLofiPlaying, setIsLofiPlaying] = useState(false);
+  const [lofiVolume, setLofiVolume] = useState(1);
+
+  // Onboarding tooltip: show every visit
+  useEffect(() => {
+    const showTimer = setTimeout(() => setShowOnboarding(true), 3000);
+    const hideTimer = setTimeout(() => setShowOnboarding(false), 9000);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
+
+  const dismissOnboarding = () => {
+    setShowOnboarding(false);
+  };
+  const lofiRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (lofiRef.current) {
+      lofiRef.current.volume = lofiVolume;
     }
-  ];
+  }, [lofiVolume]);
+
+  useEffect(() => {
+    return () => {
+      if (lofiRef.current) {
+        lofiRef.current.pause();
+        lofiRef.current = null;
+      }
+    };
+  }, []);
+
+  const toggleLofi = () => {
+    if (!lofiRef.current) {
+      lofiRef.current = new Audio("/lofi.mp3");
+      lofiRef.current.loop = true;
+      lofiRef.current.volume = lofiVolume;
+    }
+
+    if (isLofiPlaying) {
+      lofiRef.current.pause();
+    } else {
+      lofiRef.current.play().catch(e => console.error("Lofi play failed:", e));
+    }
+    setIsLofiPlaying(!isLofiPlaying);
+  };
+
+  const starPositions = useMemo(() => {
+    return [...Array(50)].map(() => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      duration: 2 + Math.random() * 3,
+      delay: Math.random() * 5,
+    }));
+  }, []);
 
   return (
-    <div className="min-h-screen pt-32 pb-16 px-4 bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
-
-      {/* Interactive Background */}
-      <BackgroundRippleEffect className="-top-20 opacity-50" />
-
-      <div className="max-w-7xl mx-auto space-y-20 relative z-10">
-
-        {/* Hero Section */}
-        <div className="flex flex-col items-center text-center space-y-8 pt-20">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
-          >
-            Hi, I'm{" "}
-            <EncryptedText
-              text="Adeesha Perera"
-              encryptedClassName="text-cyan-500"
-              revealedClassName="text-cyan-400"
-              revealDelayMs={800}
+    <div className={`relative flex min-h-screen flex-col items-center bg-white dark:bg-black px-3 pt-16 text-black dark:text-white selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden transition-colors duration-300`}>
+      {/* Easter Egg Effects */}
+      <AnimatePresence>
+        {showEasterEgg && (
+          <>
+            {/* Bluish Aura Edge Effect */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] pointer-events-none shadow-[inset_0_0_150px_rgba(6,182,212,0.5)] dark:shadow-[inset_0_0_150px_rgba(6,182,212,0.4)] transition-opacity duration-1000"
             />
+            {/* Twinkling Stars Background */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
+            >
+              {starPositions.map((pos, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute h-[2px] w-[2px] bg-cyan-500 dark:bg-white rounded-full shadow-[0_0_4px_rgba(6,182,212,0.8)] dark:shadow-[0_0_3px_white]"
+                  style={{
+                    top: pos.top,
+                    left: pos.left,
+                  }}
+                  animate={{
+                    opacity: [0.2, 1, 0.2],
+                    scale: [0.8, 1.2, 0.8],
+                  }}
+                  transition={{
+                    duration: pos.duration,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: pos.delay,
+                  }}
+                />
+              ))}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-lg md:text-xl text-neutral-400 max-w-2xl"
-          >
-            I build <span className="text-cyan-400 font-semibold">AI-powered systems</span> using RAG, automation, and modern web tech.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-4 pt-4"
-          >
-            <Link href="/ai-assistant" className="px-8 py-3 rounded-full bg-cyan-500 hover:bg-cyan-600 text-white font-medium transition-colors shadow-[0_0_15px_rgba(6,182,212,0.5)]">
-              Chat with my AI
-            </Link>
-            <Link href="/projects" className="px-8 py-3 rounded-full border border-neutral-700 hover:border-neutral-500 text-neutral-300 hover:text-white transition-colors bg-white/5 backdrop-blur-sm">
-              View Projects
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Highlights Section */}
-        <div className="pt-20">
-          <h2 className="text-3xl font-bold text-center mb-4 text-neutral-200">Highlights</h2>
-          <HoverEffect items={highlights} />
-        </div>
-
+      {/* Theme Toggle in Top Right */}
+      <div className="fixed top-6 right-6 z-50">
+        <ThemeToggle />
       </div>
+
+      <AnimatePresence mode="wait">
+        {mode === "agent" ? (
+          /* Agent Mode - Markdown View */
+          <motion.main
+            key="agent"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="flex w-full max-w-2xl flex-col items-start text-left px-4 sm:px-0"
+          >
+            <pre
+              className="w-full whitespace-pre-wrap font-mono text-sm leading-relaxed text-black dark:text-gray-300 selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black antialiased"
+              style={{ fontFamily: '"Courier New", Courier, "Lucida Sans Typewriter", "Lucida Console", monospace' }}
+            >
+              {markdownContent}
+            </pre>
+          </motion.main>
+        ) : (
+          /* Human Mode - Original View */
+          <motion.main
+            key="human"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="flex w-full max-w-2xl flex-col items-center text-center"
+          >
+            {/* Profile Image - Easter Egg Trigger */}
+            <button
+              onClick={() => setShowEasterEgg(!showEasterEgg)}
+              className="group relative mb-2 h-40 w-40 grayscale filter sm:h-56 sm:w-56 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95 rounded-full bg-gray-100 dark:bg-zinc-900 flex items-center justify-center"
+              aria-label="Toggle Aura Mode"
+            >
+              {/* Placeholder avatar - replace /me.png with your photo */}
+              <div className={`flex items-center justify-center h-full w-full transition-all duration-700 ${showEasterEgg ? 'scale-105' : ''}`}>
+                <User className="h-20 w-20 sm:h-28 sm:w-28 text-gray-300 dark:text-zinc-700" />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white via-white/60 to-transparent dark:from-black dark:via-black/60 backdrop-blur-[1px]" />
+              {/* Subtle Glow on Hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_20px_rgba(6,182,212,0.3)] rounded-full pointer-events-none" />
+            </button>
+
+            {/* Hero Text */}
+            <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-7xl">
+              Adeesha Perera
+            </h1>
+
+            {/* Phonetic Pronunciation */}
+            <div className="mb-8 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500 sm:text-sm">
+              <span>/əˈdiːʃə pəˈreːrə/</span>
+              <span className="text-gray-300 dark:text-gray-700">•</span>
+              <span>noun</span>
+              <span className="text-gray-300 dark:text-gray-700">•</span>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="tabular-nums text-xs sm:text-sm">{time || "00:00:00"}</span>
+                  <span className="text-[10px] uppercase tracking-wider sm:text-xs">IST</span>
+                </div>
+
+                <span className="text-gray-300 dark:text-gray-700">•</span>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-tight text-gray-400">lofi</span>
+                  <button
+                    onClick={toggleLofi}
+                    className="flex h-5 w-5 items-center justify-center rounded-full transition-all hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-400 hover:text-black dark:hover:text-white"
+                    aria-label={isLofiPlaying ? "Pause Lofi" : "Play Lofi"}
+                  >
+                    {isLofiPlaying ? <Pause size={10} fill="currentColor" /> : <Music size={10} />}
+                  </button>
+                  <AnimatePresence>
+                    {isLofiPlaying && (
+                      <motion.div
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: 40, opacity: 1 }}
+                        exit={{ width: 0, opacity: 0 }}
+                        className="flex h-5 items-center overflow-hidden"
+                      >
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.01"
+                          value={lofiVolume}
+                          onChange={(e) => setLofiVolume(parseFloat(e.target.value))}
+                          className="h-[2px] w-8 cursor-pointer appearance-none rounded-full bg-gray-200 dark:bg-zinc-800 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-400 dark:[&::-webkit-slider-thumb]:bg-zinc-500 hover:[&::-webkit-slider-thumb]:bg-black dark:hover:[&::-webkit-slider-thumb]:bg-white [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:h-2 [&::-moz-range-thumb]:w-2 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-gray-400 dark:[&::-moz-range-thumb]:bg-zinc-500 hover:[&::-moz-range-thumb]:bg-black dark:hover:[&::-moz-range-thumb]:bg-white transition-all"
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
+
+            {/* Bio */}
+            <div className="w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
+              <p>
+                an IT undergraduate and{" "}
+                <a href="https://en.wikipedia.org/wiki/Artificial_intelligence" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">
+                  AI enthusiast
+                </a>{" "}
+                who builds AI-powered systems using RAG, automation, and modern web tech.
+              </p>
+              <p>
+                focused on bridging the gap between complex{" "}
+                <a href="https://en.wikipedia.org/wiki/Large_language_model" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">
+                  AI systems
+                </a>{" "}
+                and practical user applications through engineering, cloud systems, and automation-driven solutions.
+              </p>
+            </div>
+
+            {/* Featured Projects Section */}
+            <div className="mb-16 mt-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Featured Projects
+              </h2>
+              <div className="space-y-6">
+                <Link href="/ai-assistant" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-black dark:text-white">AI Portfolio Assistant</span>
+                    <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    An interactive RAG-based assistant that answers questions about my skills and experience using local documents.
+                  </p>
+                </Link>
+
+                <Link href="/ai-news" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-black dark:text-white">AI News Automation</span>
+                    <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    End-to-end automated news aggregation pipeline powered by LLMs and n8n workflow automation.
+                  </p>
+                </Link>
+
+                <div className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-black dark:text-white">CarbonBridge Platform</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 dark:bg-zinc-800 px-2 py-1 rounded-full">Coming Soon</span>
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    A comprehensive platform for tracking and reducing carbon footprints with AI-driven analysis.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Experience Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Experience
+              </h2>
+              <div className="space-y-12">
+                <ExperienceItem
+                  title="AI Engineering Intern"
+                  role="Tech Company"
+                  collapsible={true}
+                >
+                  <div className="space-y-2">
+                    <p>Worked on developing RAG systems and integrating LLMs into production workflows. Built automated pipelines for data processing and content generation.</p>
+                    <p>Collaborated with cross-functional teams to design and implement AI-powered features that improved user engagement and operational efficiency.</p>
+                    <p>Gained hands-on experience with vector databases, embedding models, and prompt engineering techniques for enterprise applications.</p>
+                  </div>
+                </ExperienceItem>
+
+                <ExperienceItem
+                  title="Freelance Developer"
+                  role="Self-employed"
+                  collapsible={true}
+                >
+                  <div className="space-y-2">
+                    <p>Developed full-stack web applications for clients using Next.js, React, and Node.js. Focused on creating modern, responsive, and performant user interfaces.</p>
+                    <p>Built custom automation workflows using n8n and integrated various APIs to streamline client business processes.</p>
+                    <p>Delivered projects on time with clean, maintainable code and comprehensive documentation.</p>
+                  </div>
+                </ExperienceItem>
+              </div>
+            </div>
+
+            {/* Education Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Education
+              </h2>
+              <div className="space-y-12">
+                <ExperienceItem
+                  title="University"
+                  role="BSc (Hons) in Information Technology"
+                >
+                  <p>Currently pursuing — Expected 2026</p>
+                </ExperienceItem>
+              </div>
+            </div>
+
+            {/* Tech Stack Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Tech Stack
+              </h2>
+              <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
+                I build with a diverse set of tools, but here&apos;s the core stack I work with most:
+              </p>
+              <TechStack />
+            </div>
+
+            {/* Writings & Blogs Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Writings & Blogs
+              </h2>
+              <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+                I share my thoughts and insights on AI systems, automation workflows, and modern web development. Always exploring new ideas and documenting the journey of building intelligent applications.
+              </p>
+            </div>
+
+            {/* Library Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Library
+              </h2>
+
+              {/* Dev Subsection */}
+              <div className="mb-8">
+                <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">
+                  Dev
+                </h3>
+                <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                  {[
+                    { title: "Designing Data-Intensive Applications", author: "Martin Kleppmann" },
+                    { title: "Clean Code", author: "Robert C. Martin" },
+                    { title: "The Pragmatic Programmer", author: "David Thomas & Andrew Hunt" },
+                    { title: "System Design Interview", author: "Alex Xu" },
+                  ].map((book) => (
+                    <div key={book.title} className="group flex flex-col gap-1 transition-all">
+                      <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">
+                        {book.title}
+                      </span>
+                      <span className="text-xs text-gray-400 dark:text-gray-500">
+                        {book.author}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* AI & ML Subsection */}
+              <div className="mb-4">
+                <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">
+                  AI & ML
+                </h3>
+                <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                  {[
+                    { title: "Hands-On Machine Learning", author: "Aurélien Géron" },
+                    { title: "Deep Learning", author: "Ian Goodfellow et al." },
+                    { title: "AI Superpowers", author: "Kai-Fu Lee" },
+                    { title: "The Hundred-Page Machine Learning Book", author: "Andriy Burkov" },
+                  ].map((book) => (
+                    <div key={book.title} className="group flex flex-col gap-1 transition-all">
+                      <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">
+                        {book.title}
+                      </span>
+                      <span className="text-xs text-gray-400 dark:text-gray-500">
+                        {book.author}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Note */}
+              <p className="mt-6 text-xs italic text-gray-400 dark:text-gray-500">
+                *and many more — these are just some of my favorites
+              </p>
+            </div>
+
+            {/* Thing about me Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Thing about me
+              </h2>
+              <div className="space-y-6">
+                <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+                  Beyond code and AI systems, I find balance in exploring new technologies and understanding how things work at their core. My curiosity drives me to constantly learn, experiment, and push the boundaries of what&apos;s possible with modern tech.
+                </p>
+                <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+                  I believe the best products come from people who are genuinely curious. It&apos;s the unique combination of technical depth and human perspective that allows us to create technology that actually resonates with users.
+                </p>
+              </div>
+            </div>
+
+            {/* Get in Touch Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+                Get in Touch
+              </h2>
+              <div className="space-y-4">
+                <p className="text-lg text-gray-600 dark:text-gray-400">
+                  Connect with me on{" "}
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
+                  >
+                    LinkedIn
+                  </a>{" "}
+                  or{" "} shoot an{" "}
+                  <a
+                    href="mailto:hello@adeesha.dev"
+                    className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
+                  >
+                    email
+                  </a>
+                </p>
+              </div>
+            </div>
+
+          </motion.main>
+        )}
+      </AnimatePresence>
+
+      {/* Glass Island Navbar */}
+      <nav className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full border border-gray-200 dark:border-zinc-700 bg-white/70 dark:bg-zinc-900/80 px-4 py-3 shadow-sm backdrop-blur-md transition-all hover:bg-white/90 dark:hover:bg-zinc-900 sm:gap-6 sm:px-6 z-50">
+        {/* Mode Toggle Switch */}
+        <div className="flex items-center">
+          <button
+            onClick={() => setMode(mode === "human" ? "agent" : "human")}
+            className="group relative flex h-7 w-12 cursor-pointer rounded-full bg-gray-200 dark:bg-zinc-700 p-1 transition-colors duration-200 ease-in-out hover:bg-gray-300 dark:hover:bg-zinc-600 focus:outline-none"
+            role="switch"
+            aria-checked={mode === "agent"}
+            title={`Switch to ${mode === "human" ? "agent" : "human"} mode`}
+          >
+            <div
+              className={`flex h-5 w-5 transform items-center justify-center rounded-full bg-white dark:bg-white shadow-sm transition duration-200 ease-in-out ${mode === "agent" ? "translate-x-5" : "translate-x-0"
+                }`}
+            >
+              {mode === "human" ? (
+                <User className="h-3 w-3 text-black" />
+              ) : (
+                <Bot className="h-3 w-3 text-black" />
+              )}
+            </div>
+          </button>
+        </div>
+        <button
+          onClick={() => setShowQR(true)}
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
+          aria-label="Show QR Code"
+        >
+          <QrCode className="h-5 w-5" />
+        </button>
+        <div className="h-6 w-px bg-gray-200 dark:bg-zinc-700" />
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
+          title="GitHub"
+        >
+          <Github className="h-5 w-5" />
+        </a>
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
+          title="LinkedIn"
+        >
+          <Linkedin className="h-5 w-5" />
+        </a>
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
+          title="X / Twitter"
+        >
+          <FaXTwitter className="h-5 w-5" />
+        </a>
+        <a
+          href="mailto:hello@adeesha.dev"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
+          title="Email"
+        >
+          <Mail className="h-5 w-5" />
+        </a>
+        <div className="h-6 w-px bg-gray-200 dark:bg-zinc-700" />
+        <div className="relative">
+          {/* Onboarding Tooltip */}
+          <AnimatePresence>
+            {showOnboarding && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="absolute bottom-full mb-3 right-1/2 translate-x-1/2 whitespace-nowrap z-50"
+              >
+                <Link
+                  href="/ai-assistant"
+                  onClick={dismissOnboarding}
+                  className="group flex items-center gap-2 rounded-full border border-gray-200 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/90 backdrop-blur-md px-4 py-2 shadow-lg transition-all hover:border-gray-400 dark:hover:border-zinc-500 hover:shadow-xl"
+                >
+                  <span className="text-xs font-medium text-gray-600 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors">
+                    Ask my AI about me
+                  </span>
+                  <ArrowRight className="h-3 w-3 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                </Link>
+                {/* Caret arrow */}
+                <div className="absolute left-1/2 -translate-x-1/2 -bottom-[5px] h-0 w-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-200 dark:border-t-zinc-700" />
+                <div className="absolute left-1/2 -translate-x-1/2 -bottom-[4px] h-0 w-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-white dark:border-t-zinc-900" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <Link
+            href="/ai-assistant"
+            className={`relative text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110 ${showOnboarding ? "text-black dark:text-white" : ""
+              }`}
+            title="AI Assistant"
+          >
+            <Bot className="h-5 w-5" />
+            {/* Pulse ring while onboarding is visible */}
+            {showOnboarding && (
+              <span className="absolute -inset-1.5 rounded-full border border-gray-300 dark:border-zinc-600 animate-ping opacity-30" />
+            )}
+          </Link>
+        </div>
+      </nav>
+
+      {/* QR Code Modal */}
+      {
+        showQR && (
+          <div
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/20 dark:bg-white/5 backdrop-blur-sm"
+            onClick={() => setShowQR(false)}
+          >
+            <div
+              className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-8 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowQR(false)}
+                className="absolute -right-3 -top-3 rounded-full bg-black dark:bg-white p-2 text-white dark:text-black transition-transform hover:scale-110"
+                aria-label="Close"
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <div className="rounded-lg bg-white p-2">
+                <QRCodeSVG
+                  value="https://adeesha.dev/"
+                  size={200}
+                  level="H"
+                  includeMargin={false}
+                />
+              </div>
+            </div>
+          </div>
+        )
+      }
     </div>
   );
 }

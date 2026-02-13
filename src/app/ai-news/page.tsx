@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { IconNews, IconSourceCode, IconCalendar, IconBrandGithub, IconBrandLinkedin, IconMail } from "@tabler/icons-react";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export default function AINews() {
     const newsItems = [
@@ -44,8 +45,19 @@ export default function AINews() {
     ];
 
     return (
-        <div className="min-h-screen pt-40 px-4 pb-20">
+        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white px-4 pt-8 pb-20 transition-colors duration-300">
             <div className="max-w-7xl mx-auto">
+
+                {/* Back Button */}
+                <div className="mb-6">
+                    <Link
+                        href="/"
+                        className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+                    >
+                        <ArrowLeft className="h-4 w-4" />
+                        Back to Portfolio
+                    </Link>
+                </div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -53,7 +65,7 @@ export default function AINews() {
                     className="text-center mb-16"
                 >
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">AI News & Insights</h1>
-                    <p className="text-neutral-400 max-w-2xl mx-auto">
+                    <p className="text-gray-400 dark:text-gray-500 max-w-2xl mx-auto">
                         A live demonstration of an automated content pipeline. News is fetched, summarized by an LLM, and published here automatically via n8n workflows.
                     </p>
                 </motion.div>
@@ -69,28 +81,22 @@ export default function AINews() {
     );
 }
 
-function NewsCard({ item, index }: { item: any, index: number }) {
+function NewsCard({ item, index }: { item: { title: string; summary: string; source: string; date: string }, index: number }) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="flex flex-col h-full bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 hover:border-cyan-500/30 transition-colors"
+            className="flex flex-col h-full bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-zinc-800 rounded-2xl p-6 hover:border-gray-400 dark:hover:border-zinc-600 transition-all"
         >
             <div className="flex-grow">
-                <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
-                <p className="text-neutral-400 text-sm leading-relaxed mb-6">{item.summary}</p>
+                <h3 className="text-lg font-semibold text-black dark:text-white mb-3">{item.title}</h3>
+                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">{item.summary}</p>
             </div>
 
-            <div className="pt-4 border-t border-neutral-800 flex justify-between items-center text-xs text-neutral-500">
-                <div className="flex items-center space-x-1">
-                    <IconSourceCode className="w-3 h-3" />
-                    <span>{item.source}</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                    <IconCalendar className="w-3 h-3" />
-                    <span>{item.date}</span>
-                </div>
+            <div className="pt-4 border-t border-gray-200 dark:border-zinc-800 flex justify-between items-center text-xs text-gray-400 dark:text-gray-500">
+                <span>{item.source}</span>
+                <span>{item.date}</span>
             </div>
         </motion.div>
     );
