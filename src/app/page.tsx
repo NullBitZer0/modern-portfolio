@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Github, Linkedin, Bot, User, QrCode, X, Music, Pause, Mail, ArrowRight } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import { ExperienceItem } from "@/components/ExperienceItem";
@@ -181,17 +182,19 @@ export default function Home() {
           >
             {/* Profile Image - Easter Egg Trigger */}
             <button
-              onClick={() => setShowEasterEgg(!showEasterEgg)}
-              className="group relative mb-2 h-40 w-40 grayscale filter sm:h-56 sm:w-56 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95 rounded-full bg-gray-100 dark:bg-zinc-900 flex items-center justify-center"
+              className="group relative mb-2 h-40 w-40 grayscale filter sm:h-56 sm:w-56 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95 flex items-center justify-center"
               aria-label="Toggle Aura Mode"
             >
-              {/* Placeholder avatar - replace /me.png with your photo */}
-              <div className={`flex items-center justify-center h-full w-full transition-all duration-700 ${showEasterEgg ? 'scale-105' : ''}`}>
-                <User className="h-20 w-20 sm:h-28 sm:w-28 text-gray-300 dark:text-zinc-700" />
+              <div className={`relative h-full w-full scale-[1.5] transition-all duration-700`}>
+                <Image
+                  src="/me-new.png"
+                  alt="Adeesha Perera"
+                  fill
+                  className="object-cover rounded-full"
+                  priority
+                />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white via-white/60 to-transparent dark:from-black dark:via-black/60 backdrop-blur-[1px]" />
-              {/* Subtle Glow on Hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_20px_rgba(6,182,212,0.3)] rounded-full pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-12" />
             </button>
 
             {/* Hero Text */}
@@ -292,11 +295,21 @@ export default function Home() {
 
                 <div className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-black dark:text-white">CarbonBridge Platform</span>
+                    <span className="font-medium text-black dark:text-white">AI PDF Summarizer</span>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 dark:bg-zinc-800 px-2 py-1 rounded-full">Coming Soon</span>
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    A comprehensive platform for tracking and reducing carbon footprints with AI-driven analysis.
+                    Upload any PDF and get an AI-generated summary instantly — powered by LLMs for intelligent document comprehension and key insight extraction.
+                  </p>
+                </div>
+
+                <div className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-black dark:text-white">AI Resume Analyzer</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 dark:bg-zinc-800 px-2 py-1 rounded-full">Coming Soon</span>
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Upload your resume and receive AI-powered feedback on structure, keyword optimization, and ATS compatibility to land more interviews.
                   </p>
                 </div>
               </div>
