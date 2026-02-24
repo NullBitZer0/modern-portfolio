@@ -1,6 +1,9 @@
 {
-    "name": "Adeesha Perera",
+    "name": "Adeesha Perera — AI Engineer & Full-Stack Developer",
     "short_name": "Adeesha",
+    "description": "Portfolio of Adeesha Nishal Perera — AI Engineer, Full-Stack Developer, and IT undergraduate.",
+    "start_url": "/",
+    "scope": "/",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +16,8 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
-    "display": "standalone"
+    "theme_color": "#000000",
+    "background_color": "#000000",
+    "display": "standalone",
+    "orientation": "portrait"
 }

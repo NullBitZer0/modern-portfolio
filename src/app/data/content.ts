@@ -32,6 +32,11 @@ Self-hosted infrastructure running on Docker/Ubuntu Server with Nginx Proxy Mana
 - Jellyfin — Open-source media streaming server
 - Home Assistant — Smart home and IoT device management
 - Vaultwarden — Self-hosted password manager
+- OpenClaw — Free, open-source autonomous AI agent / personal assistant
+- Data Integrity Bot — Automated data validation and health checks
+- University Scraper Bot — University site scraping for course data
+- Price Monitor Bot — E-commerce price tracking and alerting
+- GitHub Activity Bot — Repository monitoring and notification bot
 
 ## Experience
 
@@ -77,12 +82,12 @@ Next.js, React, TypeScript, Python, Node.js, FastAPI, PostgreSQL, MongoDB, Fireb
 
 ## Get in Touch
 
-Connect with me on [LinkedIn](#) or shoot an [email](mailto:hello@adeesha.dev)
+Connect with me on [LinkedIn](#) or shoot an [email](mailto:hello@adeeshaperera.me)
 
 ---
 
 **Links:**
 - GitHub: [github.com/adeesha-dev](#)
 - LinkedIn: [linkedin.com/in/adeesha-dev](#)
-- Email: hello@adeesha.dev
+- Email: hello@adeeshaperera.me
 `;

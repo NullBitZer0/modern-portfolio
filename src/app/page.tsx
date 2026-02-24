@@ -321,10 +321,10 @@ export default function Home() {
                       <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
                     </div>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                      A personal homelab running 10+ Docker containers — from monitoring with Grafana to self-hosted cloud storage, reverse proxying, and IoT automation.
+                      A personal homelab running 15+ Docker containers — from monitoring with Grafana to self-hosted AI agents, automated bots, cloud storage, and IoT automation.
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {["Docker", "Grafana", "Nextcloud", "Nginx", "Pi-hole", "Portainer"].map((tag) => (
+                      {["Docker", "Grafana", "Nextcloud", "Nginx", "Pi-hole", "Portainer", "OpenClaw", "Bots"].map((tag) => (
                         <span key={tag} className="px-2 py-1 rounded-full text-[10px] font-medium bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-zinc-700">
                           {tag}
                         </span>
@@ -496,7 +496,7 @@ export default function Home() {
                   </a>{" "}
                   or{" "} shoot an{" "}
                   <a
-                    href="mailto:hello@adeesha.dev"
+                    href="mailto:hello@adeeshaperera.me"
                     className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
                   >
                     email
@@ -568,7 +568,7 @@ export default function Home() {
           <FaXTwitter className="h-5 w-5" />
         </a>
         <a
-          href="mailto:hello@adeesha.dev"
+          href="mailto:hello@adeeshaperera.me"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
           title="Email"
         >
@@ -663,7 +663,7 @@ export default function Home() {
               </button>
               <div className="rounded-lg bg-white p-2">
                 <QRCodeSVG
-                  value="https://adeesha.dev/"
+                  value="https://adeeshaperera.me/"
                   size={200}
                   level="H"
                   includeMargin={false}

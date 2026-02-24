@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Server, Shield, HardDrive, Activity, Cloud, Eye, Monitor, Database, Wifi, Container, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowLeft, Server, Shield, HardDrive, Activity, Cloud, Eye, Monitor, Database, Wifi, Container, ChevronDown, ChevronUp, Bot, ShieldCheck, GraduationCap, TrendingDown, Github, Cpu, MemoryStick } from "lucide-react";
 import Link from "next/link";
 
 type Service = {
     name: string;
     description: string;
-    category: "monitoring" | "storage" | "networking" | "media" | "security" | "automation";
+    category: "monitoring" | "storage" | "networking" | "media" | "security" | "automation" | "bots";
     icon: React.ReactNode;
     status: "running" | "stopped";
     port?: string;
@@ -94,6 +94,46 @@ const services: Service[] = [
         status: "running",
         port: "8443"
     },
+    {
+        name: "OpenClaw",
+        description: "Free, open-source autonomous AI agent acting as a personal assistant",
+        category: "automation",
+        icon: <Bot className="h-5 w-5" />,
+        status: "running",
+        port: "8888"
+    },
+    {
+        name: "Data Integrity Bot",
+        description: "Automated data validation, health checks, and anomaly detection",
+        category: "bots",
+        icon: <ShieldCheck className="h-5 w-5" />,
+        status: "running",
+        port: "5050"
+    },
+    {
+        name: "University Scraper Bot",
+        description: "Web scraper for university course listings, deadlines, and admissions data",
+        category: "bots",
+        icon: <GraduationCap className="h-5 w-5" />,
+        status: "running",
+        port: "5051"
+    },
+    {
+        name: "Price Monitor Bot",
+        description: "E-commerce price tracking with alerts for drops and deal detection",
+        category: "bots",
+        icon: <TrendingDown className="h-5 w-5" />,
+        status: "running",
+        port: "5052"
+    },
+    {
+        name: "GitHub Activity Bot",
+        description: "Monitors repositories for commits, PRs, and issues with notifications",
+        category: "bots",
+        icon: <Github className="h-5 w-5" />,
+        status: "running",
+        port: "5053"
+    },
 ];
 
 const categories = [
@@ -104,6 +144,7 @@ const categories = [
     { key: "security", label: "Security" },
     { key: "media", label: "Media" },
     { key: "automation", label: "Automation" },
+    { key: "bots", label: "Bots" },
 ];
 
 const getCategoryColor = (category: string) => {
@@ -114,6 +155,7 @@ const getCategoryColor = (category: string) => {
         case "security": return "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400";
         case "media": return "bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400";
         case "automation": return "bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400";
+        case "bots": return "bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400";
         default: return "bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-gray-400";
     }
 };
@@ -166,7 +208,7 @@ export default function Homelab() {
                         { label: "Services", value: `${services.length}+`, icon: <Container className="h-4 w-4" /> },
                         { label: "Uptime", value: "99.9%", icon: <Activity className="h-4 w-4" /> },
                         { label: "Containers", value: `${services.length}+`, icon: <Server className="h-4 w-4" /> },
-                        { label: "Storage", value: "4TB+", icon: <HardDrive className="h-4 w-4" /> },
+                        { label: "Storage", value: "3TB", icon: <HardDrive className="h-4 w-4" /> },
                     ].map((stat) => (
                         <div
                             key={stat.label}
@@ -177,6 +219,36 @@ export default function Homelab() {
                             <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">{stat.label}</div>
                         </div>
                     ))}
+                </motion.div>
+
+                {/* Server Hardware */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.12 }}
+                    className="mb-12"
+                >
+                    <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
+                        Server Hardware
+                    </h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[
+                            { label: "Processor", value: "Intel i3", detail: "8th Generation", icon: <Cpu className="h-4 w-4" /> },
+                            { label: "Memory", value: "8 GB", detail: "DDR4 RAM", icon: <MemoryStick className="h-4 w-4" /> },
+                            { label: "Storage", value: "3 TB", detail: "HDD", icon: <HardDrive className="h-4 w-4" /> },
+                            { label: "OS", value: "Ubuntu", detail: "Server", icon: <Server className="h-4 w-4" /> },
+                        ].map((spec) => (
+                            <div
+                                key={spec.label}
+                                className="p-4 rounded-xl border border-gray-200 dark:border-zinc-800 text-center"
+                            >
+                                <div className="flex justify-center mb-2 text-gray-400">{spec.icon}</div>
+                                <div className="text-lg font-bold text-black dark:text-white">{spec.value}</div>
+                                <div className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5">{spec.detail}</div>
+                                <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">{spec.label}</div>
+                            </div>
+                        ))}
+                    </div>
                 </motion.div>
 
                 {/* Architecture Section */}
@@ -207,35 +279,35 @@ export default function Homelab() {
                             className="mt-3 rounded-xl border border-gray-200 dark:border-zinc-800 p-6 overflow-hidden"
                         >
                             <div className="font-mono text-xs md:text-sm text-gray-500 dark:text-gray-400 leading-relaxed whitespace-pre overflow-x-auto">
-                                {`┌─────────────────────────────────────────────────────────┐
-│                      INTERNET                           │
-└────────────────────────┬────────────────────────────────┘
-                         │
-                    ┌────▼────┐
-                    │ Router  │
-                    │ Pi-hole │  ← DNS & Ad Blocking
-                    └────┬────┘
-                         │
-               ┌─────────▼─────────┐
-               │  Nginx Proxy Mgr  │  ← SSL / Reverse Proxy
-               └─────────┬─────────┘
-                         │
-         ┌───────────────┼───────────────┐
-         │               │               │
-   ┌─────▼─────┐  ┌─────▼─────┐  ┌─────▼─────┐
-   │ Monitoring │  │  Storage  │  │  Services  │
-   │            │  │           │  │            │
-   │ Grafana    │  │ Nextcloud │  │ Jellyfin   │
-   │ Prometheus │  │ Vault-    │  │ Home Asst  │
-   │ Uptime     │  │  warden   │  │ Portainer  │
-   └────────────┘  └───────────┘  └────────────┘
-         │               │               │
-         └───────────────┼───────────────┘
-                         │
-               ┌─────────▼─────────┐
-               │   Docker Engine   │
-               │   Ubuntu Server   │
-               └───────────────────┘`}
+                                {`┌──────────────────────────────────────────────────────────────────────────────┐
+│                                 INTERNET                                     │
+└──────────────────────────────────┬───────────────────────────────────────────┘
+                                   │
+                              ┌────▼────┐
+                              │ Router  │
+                              │ Pi-hole │  ← DNS & Ad Blocking
+                              └────┬────┘
+                                   │
+                         ┌─────────▼─────────┐
+                         │  Nginx Proxy Mgr  │  ← SSL / Reverse Proxy
+                         └─────────┬─────────┘
+                                   │
+         ┌─────────────┬───────────┼───────────┬─────────────┐
+         │             │           │           │             │
+   ┌─────▼─────┐ ┌─────▼─────┐ ┌──▼──────┐ ┌──▼──────┐ ┌───▼───────┐
+   │ Monitoring │ │  Storage  │ │Services │ │   AI    │ │   Bots    │
+   │            │ │           │ │         │ │         │ │           │
+   │ Grafana    │ │ Nextcloud │ │Jellyfin │ │OpenClaw │ │ Data Bot  │
+   │ Prometheus │ │ Vault-    │ │Home Asst│ │         │ │ Uni Bot   │
+   │ Uptime     │ │  warden   │ │Portainer│ │         │ │ Price Bot │
+   └────────────┘ └───────────┘ └─────────┘ └─────────┘ │ GH Bot    │
+         │             │           │           │        └───────────┘
+         └─────────────┴───────────┼───────────┘             │
+                                   │                         │
+                         ┌─────────▼─────────────────────────┘
+                         │       Docker Engine               │
+                         │       Ubuntu Server               │
+                         └───────────────────────────────────┘`}
                             </div>
                         </motion.div>
                     )}
@@ -257,8 +329,8 @@ export default function Homelab() {
                                 key={cat.key}
                                 onClick={() => setActiveCategory(cat.key)}
                                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${activeCategory === cat.key
-                                        ? "bg-black dark:bg-white text-white dark:text-black"
-                                        : "bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-zinc-700"
+                                    ? "bg-black dark:bg-white text-white dark:text-black"
+                                    : "bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-zinc-700"
                                     }`}
                             >
                                 {cat.label}
@@ -316,7 +388,8 @@ export default function Homelab() {
                     <div className="flex flex-wrap gap-2">
                         {[
                             "Docker", "Docker Compose", "Ubuntu Server", "Nginx", "Let's Encrypt",
-                            "Cloudflare", "SSH", "Bash", "Cron", "Git", "YAML", "Prometheus", "Grafana"
+                            "Cloudflare", "SSH", "Bash", "Cron", "Git", "YAML", "Prometheus", "Grafana",
+                            "Python", "Selenium", "BeautifulSoup", "OpenAI API"
                         ].map((tech) => (
                             <span
                                 key={tech}

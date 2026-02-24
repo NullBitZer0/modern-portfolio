@@ -9,9 +9,70 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "700"],
 });
 
+const siteUrl = "https://adeeshaperera.me";
+const siteName = "Adeesha Perera — AI Engineer & Full-Stack Developer";
+const siteDescription =
+  "Portfolio of Adeesha Nishal Perera — AI Engineer, Full-Stack Developer, and IT undergraduate building intelligent systems with RAG, LLMs, automation, and modern web technologies. Self-hosted homelab enthusiast.";
+
 export const metadata: Metadata = {
-  title: "Adeesha Perera",
-  description: "AI Engineer & Full-Stack Developer — Portfolio",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteName,
+    template: "%s | Adeesha Perera",
+  },
+  description: siteDescription,
+  keywords: [
+    "Adeesha Perera",
+    "Adeesha Nishal Perera",
+    "AI Engineer",
+    "Full-Stack Developer",
+    "Portfolio",
+    "RAG",
+    "LLM",
+    "LangChain",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Python",
+    "FastAPI",
+    "Docker",
+    "Homelab",
+    "Self-Hosted",
+    "n8n Automation",
+    "Machine Learning",
+    "Sri Lanka",
+  ],
+  authors: [{ name: "Adeesha Nishal Perera", url: siteUrl }],
+  creator: "Adeesha Nishal Perera",
+  publisher: "Adeesha Nishal Perera",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: siteUrl,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: "Adeesha Perera",
+    title: siteName,
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteName,
+    description: siteDescription,
+    creator: "@adeesha_dev",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -23,6 +84,38 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
+  category: "technology",
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Adeesha Nishal Perera",
+  url: siteUrl,
+  image: `${siteUrl}/me-new.png`,
+  jobTitle: "AI Engineer & Full-Stack Developer",
+  description: siteDescription,
+  sameAs: [
+    "https://github.com/adeesha-dev",
+    "https://linkedin.com/in/adeesha-dev",
+  ],
+  knowsAbout: [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "RAG Systems",
+    "LangChain",
+    "Full-Stack Development",
+    "Next.js",
+    "React",
+    "Python",
+    "Docker",
+    "Self-Hosted Infrastructure",
+    "n8n Automation",
+  ],
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "University",
+  },
 };
 
 export default function RootLayout({
@@ -32,6 +125,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${dmSans.variable} antialiased transition-colors duration-300`}
       >
