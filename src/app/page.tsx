@@ -198,9 +198,18 @@ export default function Home() {
             </button>
 
             {/* Hero Text */}
-            <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-7xl">
+            <h1 className="mb-4 sm:hidden text-5xl font-bold tracking-tight text-center">
               Adeesha Perera
             </h1>
+            <div className="mb-4 hidden sm:flex w-full justify-center">
+              <pre className="text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] leading-tight font-bold tracking-tight text-black dark:text-white font-mono text-center">
+{`     _    ____  _____ _____ ____  _   _    _      ____  _____ ____  _____ ____      _    
+    / \\  |  _ \\| ____| ____/ ___|| | | |  / \\    |  _ \\| ____|  _ \\| ____|  _ \\    / \\   
+   / _ \\ | | | |  _| |  _| \\___ \\| |_| | / _ \\   | |_) |  _| | |_) |  _| | |_) |  / _ \\  
+  / ___ \\| |_| | |___| |___ ___) |  _  |/ ___ \\  |  __/| |___|  _ <| |___|  _ <  / ___ \\ 
+ /_/   \\_\\____/|_____|_____|____/|_| |_/_/   \\_\\ |_|   |_____|_| \\_\\_____|_| \\_\\/_/   \\_\\`}
+              </pre>
+            </div>
 
             {/* Phonetic Pronunciation */}
             <div className="mb-8 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500 sm:text-sm">
