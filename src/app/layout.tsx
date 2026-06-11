@@ -87,37 +87,6 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Adeesha Nishal Perera",
-  url: siteUrl,
-  image: `${siteUrl}/me-new.png`,
-  jobTitle: "AI Engineer & Full-Stack Developer",
-  description: siteDescription,
-  sameAs: [
-    "https://github.com/adeesha-dev",
-    "https://linkedin.com/in/adeesha-dev",
-  ],
-  knowsAbout: [
-    "Artificial Intelligence",
-    "Machine Learning",
-    "RAG Systems",
-    "LangChain",
-    "Full-Stack Development",
-    "Next.js",
-    "React",
-    "Python",
-    "Docker",
-    "Self-Hosted Infrastructure",
-    "n8n Automation",
-  ],
-  alumniOf: {
-    "@type": "EducationalOrganization",
-    name: "University",
-  },
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -125,12 +94,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
       <body
         className={`${dmSans.variable} antialiased transition-colors duration-300`}
       >

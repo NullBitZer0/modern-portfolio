@@ -64,6 +64,13 @@ export default function AIAssistant() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-8"
                 >
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 text-xs font-medium mb-4">
+                        <span className="relative flex h-2 w-2">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
+                        </span>
+                        In Progress
+                    </div>
                     <h1 className="text-3xl md:text-4xl font-bold mb-2 flex justify-center items-center gap-2">
                         <span className="text-gray-400">AI</span> Portfolio Assistant
                     </h1>

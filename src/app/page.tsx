@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Linkedin, Bot, User, QrCode, X, Music, Pause, Mail, ArrowRight, Server } from "lucide-react";
-import { FaXTwitter } from "react-icons/fa6";
+import { Github, Linkedin, Bot, User, QrCode, X, Music, Pause, Mail, ArrowRight } from "lucide-react";
 import { ExperienceItem } from "@/components/ExperienceItem";
 import { TechStack } from "@/components/TechStack";
 import { useState, useEffect, useMemo, useRef } from "react";
@@ -273,9 +272,24 @@ export default function Home() {
                 Featured Projects
               </h2>
               <div className="space-y-6">
+                <Link href="/fraud-detection" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-black dark:text-white">Real-Time Fraud Detection</span>
+                    <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Production-grade fraud detection with CatBoost, Feast feature store, Kafka streaming, and automated MLOps — sub-15ms latency.
+                  </p>
+                </Link>
+
                 <Link href="/ai-assistant" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-black dark:text-white">AI Portfolio Assistant</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-black dark:text-white">AI Portfolio Assistant</span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+                        In Progress
+                      </span>
+                    </div>
                     <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -283,87 +297,20 @@ export default function Home() {
                   </p>
                 </Link>
 
-                <Link href="/ai-news" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
+                <Link href="/nvidia-report-analysis" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-black dark:text-white">AI News Automation</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-black dark:text-white">NVIDIA Report Analysis</span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+                        In Progress
+                      </span>
+                    </div>
                     <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    End-to-end automated news aggregation pipeline powered by LLMs and n8n workflow automation.
+                    NLP-based NVIDIA report analysis using FinBERT sentiment scoring, web scraping, LSTM OHLC prediction, and Telegram alerts.
                   </p>
                 </Link>
-
-                <Link href="/movie-recommendations" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-black dark:text-white">AI Movie Recommendation System</span>
-                    <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
-                  </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Get personalized movie recommendations powered by collaborative filtering and content-based AI models trained on real viewing data.
-                  </p>
-                </Link>
-              </div>
-            </div>
-
-            {/* Homelab Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Homelab
-              </h2>
-              <Link href="/homelab" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
-                <div className="flex items-start gap-4">
-                  <div className="p-2.5 rounded-xl bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 mt-0.5">
-                    <Server className="h-5 w-5" />
-                  </div>
-                  <div className="flex-grow">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-black dark:text-white">Self-Hosted Infrastructure</span>
-                      <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                      A personal homelab running 15+ Docker containers — from monitoring with Grafana to self-hosted AI agents, automated bots, cloud storage, and IoT automation.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {["Docker", "Grafana", "Nextcloud", "Nginx", "Pi-hole", "Portainer", "OpenClaw", "Bots"].map((tag) => (
-                        <span key={tag} className="px-2 py-1 rounded-full text-[10px] font-medium bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-zinc-700">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </div>
-
-            {/* Experience Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Experience
-              </h2>
-              <div className="space-y-12">
-                <ExperienceItem
-                  title="AI Engineering Intern"
-                  role="Tech Company"
-                  collapsible={true}
-                >
-                  <div className="space-y-2">
-                    <p>Worked on developing RAG systems and integrating LLMs into production workflows. Built automated pipelines for data processing and content generation.</p>
-                    <p>Collaborated with cross-functional teams to design and implement AI-powered features that improved user engagement and operational efficiency.</p>
-                    <p>Gained hands-on experience with vector databases, embedding models, and prompt engineering techniques for enterprise applications.</p>
-                  </div>
-                </ExperienceItem>
-
-                <ExperienceItem
-                  title="Freelance Developer"
-                  role="Self-employed"
-                  collapsible={true}
-                >
-                  <div className="space-y-2">
-                    <p>Developed full-stack web applications for clients using Next.js, React, and Node.js. Focused on creating modern, responsive, and performant user interfaces.</p>
-                    <p>Built custom automation workflows using n8n and integrated various APIs to streamline client business processes.</p>
-                    <p>Delivered projects on time with clean, maintainable code and comprehensive documentation.</p>
-                  </div>
-                </ExperienceItem>
               </div>
             </div>
 
@@ -374,10 +321,10 @@ export default function Home() {
               </h2>
               <div className="space-y-12">
                 <ExperienceItem
-                  title="University"
+                  title="Sri Lanka Institute of Information Technology"
                   role="BSc (Hons) in Information Technology"
                 >
-                  <p>Currently pursuing — Expected 2026</p>
+                  <p>Currently pursuing — Expected 2027</p>
                 </ExperienceItem>
               </div>
             </div>
@@ -398,9 +345,20 @@ export default function Home() {
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
                 Writings & Blogs
               </h2>
-              <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                I share my thoughts and insights on AI systems, automation workflows, and modern web development. Always exploring new ideas and documenting the journey of building intelligent applications.
-              </p>
+              <div className="space-y-4">
+                <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+                  I write about building production ML systems, RAG architectures, MLOps pipelines, AI agents, and cloud-native infrastructure. Deep dives into real projects — from feature stores and model serving to streaming pipelines and automated retraining.
+                </p>
+                <a
+                  href="https://medium.com/@adeeshapererabiz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                >
+                  Read on Medium
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
 
             {/* Library Section */}
@@ -487,7 +445,7 @@ export default function Home() {
                 <p className="text-lg text-gray-600 dark:text-gray-400">
                   Connect with me on{" "}
                   <a
-                    href="#"
+                    href="https://linkedin.com/in/adeesha-perera-b9a614290"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
@@ -496,7 +454,7 @@ export default function Home() {
                   </a>{" "}
                   or{" "} shoot an{" "}
                   <a
-                    href="mailto:hello@adeeshaperera.me"
+                    href="mailto:work@adeeshaperera.me"
                     className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
                   >
                     email
@@ -552,7 +510,7 @@ export default function Home() {
         </button>
         <div className="h-6 w-px bg-gray-200 dark:bg-zinc-700" />
         <a
-          href="#"
+          href="https://github.com/NullBitZer0"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
@@ -561,7 +519,7 @@ export default function Home() {
           <Github className="h-5 w-5" />
         </a>
         <a
-          href="#"
+          href="https://linkedin.com/in/adeesha-perera-b9a614290"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
@@ -570,16 +528,7 @@ export default function Home() {
           <Linkedin className="h-5 w-5" />
         </a>
         <a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
-          title="X / Twitter"
-        >
-          <FaXTwitter className="h-5 w-5" />
-        </a>
-        <a
-          href="mailto:hello@adeeshaperera.me"
+          href="mailto:work@adeeshaperera.me"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
           title="Email"
         >
