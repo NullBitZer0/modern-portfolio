@@ -12,6 +12,7 @@ const categories = [
             { name: "TypeScript", slug: "typescript" },
             { name: "JavaScript", slug: "javascript" },
             { name: "Java", slug: "openjdk" },
+            { name: "R", slug: "r" },
         ]
     },
     {
@@ -20,7 +21,6 @@ const categories = [
             { name: "React", slug: "react" },
             { name: "Next.js", slug: "nextdotjs" },
             { name: "Tailwind CSS", slug: "tailwindcss" },
-            { name: "Framer Motion", slug: "framer" },
         ]
     },
     {
@@ -30,7 +30,8 @@ const categories = [
             { name: "FastAPI", slug: "fastapi" },
             { name: "PostgreSQL", slug: "postgresql" },
             { name: "MongoDB", slug: "mongodb" },
-            { name: "Firebase", slug: "firebase" },
+            { name: "Redis", slug: "redis" },
+            { name: "Qdrant", slug: "qdrant" },
         ]
     },
     {
@@ -38,13 +39,26 @@ const categories = [
         skills: [
             { name: "Hugging Face", slug: "huggingface" },
             { name: "LangChain", slug: "langchain" },
+            { name: "LlamaIndex", slug: "llamaindex" },
             { name: "OpenAI", slug: "openai" },
             { name: "TensorFlow", slug: "tensorflow" },
             { name: "PyTorch", slug: "pytorch" },
             { name: "scikit-learn", slug: "scikitlearn" },
-            { name: "Pandas", slug: "pandas" },
-            { name: "NumPy", slug: "numpy" },
+            { name: "ONNX", slug: "onnx" },
+            { name: "SageMaker", slug: "amazonsagemaker" },
             { name: "Ollama", slug: "ollama" },
+        ]
+    },
+    {
+        name: "MLOps & Experiment Tracking",
+        skills: [
+            { name: "Langfuse", slug: "langfuse" },
+            { name: "MLflow", slug: "mlflow" },
+            { name: "DAGsHub", slug: "dagshub" },
+            { name: "DVC", slug: "dvc" },
+            { name: "Apache Spark", slug: "apachespark" },
+            { name: "Databricks", slug: "databricks" },
+            { name: "Apache Airflow", slug: "apacheairflow" },
         ]
     },
     {
@@ -52,11 +66,12 @@ const categories = [
         skills: [
             { name: "Docker", slug: "docker" },
             { name: "AWS", slug: "amazonwebservices" },
+            { name: "S3", slug: "amazons3" },
+            { name: "Coolify", slug: "coolify" },
             { name: "Vercel", slug: "vercel" },
             { name: "Git", slug: "git" },
             { name: "GitHub", slug: "github" },
             { name: "Linux", slug: "linux" },
-            { name: "n8n", slug: "n8n" },
         ]
     }
 ];
