@@ -3,60 +3,35 @@ export const getMarkdownContent = (time: string) => `# Adeesha Perera
 
 ## About
 
-An IT undergraduate and AI enthusiast who builds AI-powered systems using RAG, automation, and modern web tech.
+An IT undergraduate and aspiring ML engineer who builds AI-powered systems using RAG, NLP, AI agents, and modern web tech.
 
-Focused on bridging the gap between complex AI systems and practical user applications through engineering, cloud systems, and automation-driven solutions.
+Focused on bridging the gap between complex AI systems and practical user applications through MLOps, cloud engineering, and automation-driven solutions.
 
 ## Featured Projects
+
+### Real-Time Fraud Detection
+Production-grade credit card fraud detection system with CatBoost classifier, Feast online/offline feature store, Apache Kafka streaming, 3-tier decision framework, and automated MLOps lifecycle. Sub-15ms P95 latency, 0.94 PR-AUC.
 
 ### AI Portfolio Assistant
 An interactive RAG-based assistant that answers questions about my skills and experience using local documents. Built with LangChain, vector stores, and a modern chat interface.
 
-### AI News Automation
-End-to-end automated news aggregation pipeline that fetches, summarizes, and publishes AI news. Powered by LLMs and n8n workflow automation.
-
-### AI Movie Recommendation System
-Personalized movie recommendations powered by collaborative filtering and content-based AI models trained on real viewing data.
-
-## Homelab
-
-Self-hosted infrastructure running on Docker/Ubuntu Server with Nginx Proxy Manager for reverse proxying and SSL.
-
-- Grafana — Metrics visualization and dashboarding
-- Prometheus — Time-series database for metrics
-- Uptime Kuma — Service uptime tracking
-- Nextcloud — Self-hosted cloud storage and collaboration
-- Portainer — Docker container management
-- Nginx Proxy Manager — Reverse proxy with SSL termination
-- Pi-hole — Network-wide ad blocking and DNS sinkhole
-- Jellyfin — Open-source media streaming server
-- Home Assistant — Smart home and IoT device management
-- Vaultwarden — Self-hosted password manager
-- OpenClaw — Free, open-source autonomous AI agent / personal assistant
-- Data Integrity Bot — Automated data validation and health checks
-- University Scraper Bot — University site scraping for course data
-- Price Monitor Bot — E-commerce price tracking and alerting
-- GitHub Activity Bot — Repository monitoring and notification bot
-
-## Experience
-
-### AI Engineering Intern
-**Tech Company**
-Developed RAG systems, integrated LLMs into production workflows, built automated pipelines for data processing and content generation. Worked with vector databases, embedding models, and prompt engineering.
-
-### Freelance Developer
-**Self-employed**
-Full-stack web applications using Next.js, React, and Node.js. Custom automation workflows using n8n and API integrations.
+### NVIDIA Report Analysis
+NLP-based NVIDIA report analysis using FinBERT sentiment scoring, web scraping, LSTM OHLC prediction, and Telegram alerts.
 
 ## Education
 
-### University
+### Sri Lanka Institute of Information Technology
 **BSc (Hons) in Information Technology**
-Currently pursuing — Expected 2026
+Currently pursuing — Expected 2027
 
 ## Tech Stack
 
-Next.js, React, TypeScript, Python, Node.js, FastAPI, PostgreSQL, MongoDB, Firebase, Docker, AWS, Vercel, LangChain, Hugging Face, OpenAI, TensorFlow, PyTorch, scikit-learn, Pandas, NumPy, Ollama, n8n, Git, Linux
+**Languages:** Python, TypeScript, JavaScript, Java, R
+**Frontend:** React, Next.js, Tailwind CSS
+**Backend & DB:** Node.js, FastAPI, PostgreSQL, MongoDB, Redis, Qdrant
+**AI & ML:** Hugging Face, LangChain, LlamaIndex, OpenAI, TensorFlow, PyTorch, scikit-learn, ONNX, SageMaker, Ollama
+**MLOps:** Langfuse, MLflow, DAGsHub, DVC, Apache Spark, Databricks, Apache Airflow
+**Infra:** Docker, AWS, S3, Coolify, Vercel, Git, GitHub, Linux
 
 ## Library
 
@@ -74,20 +49,21 @@ Next.js, React, TypeScript, Python, Node.js, FastAPI, PostgreSQL, MongoDB, Fireb
 
 ## Interests
 
-- AI Engineering & LLMs
-- Cloud Systems (AWS/Azure)
-- Automation Workflows
+- NLP, RAG, AI Agents
+- Machine Learning & MLOps
+- Cloud Engineering (AWS)
 - Modern Web Development
 - Self-Hosted Infrastructure & DevOps
 
 ## Get in Touch
 
-Connect with me on [LinkedIn](#) or shoot an [email](mailto:hello@adeeshaperera.me)
+Connect with me on [LinkedIn](https://linkedin.com/in/adeesha-perera-b9a614290) or shoot an [email](mailto:work@adeeshaperera.me)
 
 ---
 
 **Links:**
-- GitHub: [github.com/adeesha-dev](#)
-- LinkedIn: [linkedin.com/in/adeesha-dev](#)
-- Email: hello@adeeshaperera.me
+- GitHub: [github.com/NullBitZer0](https://github.com/NullBitZer0)
+- LinkedIn: [linkedin.com/in/adeesha-perera-b9a614290](https://linkedin.com/in/adeesha-perera-b9a614290)
+- Medium: [medium.com/@adeeshapererabiz](https://medium.com/@adeeshapererabiz)
+- Email: work@adeeshaperera.me
 `;

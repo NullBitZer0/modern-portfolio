@@ -251,18 +251,18 @@ export default function Home() {
             {/* Bio */}
             <div className="w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
               <p>
-                an IT undergraduate and{" "}
-                <a href="https://en.wikipedia.org/wiki/Artificial_intelligence" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">
-                  AI enthusiast
+                An IT undergraduate and aspiring{" "}
+                <a href="https://en.wikipedia.org/wiki/Machine_learning" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">
+                  ML engineer
                 </a>{" "}
-                who builds AI-powered systems using RAG, automation, and modern web tech.
+                who builds AI-powered systems using RAG, NLP, AI agents, and modern web tech.
               </p>
               <p>
-                focused on bridging the gap between complex{" "}
+                Focused on bridging the gap between complex{" "}
                 <a href="https://en.wikipedia.org/wiki/Large_language_model" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">
                   AI systems
                 </a>{" "}
-                and practical user applications through engineering, cloud systems, and automation-driven solutions.
+                and practical user applications through MLOps, cloud engineering, and automation-driven solutions.
               </p>
             </div>
 
@@ -309,6 +309,21 @@ export default function Home() {
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
                     NLP-based NVIDIA report analysis using FinBERT sentiment scoring, web scraping, LSTM OHLC prediction, and Telegram alerts.
+                  </p>
+                </Link>
+
+                <Link href="/qwen-finance" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-black dark:text-white">Fine-Tuned Qwen for Finance</span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+                        In Progress
+                      </span>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Fine-tuning Qwen 0.8B to understand financial language and extract insights.
                   </p>
                 </Link>
               </div>
