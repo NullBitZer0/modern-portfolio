@@ -311,6 +311,32 @@ export default function FraudDetection() {
                                 className="w-full object-cover"
                             />
                         </div>
+                        <div className="rounded-xl border border-gray-200 dark:border-zinc-800 overflow-hidden">
+                            <div className="px-4 py-3 border-b border-gray-200 dark:border-zinc-800">
+                                <h3 className="text-sm font-medium text-black dark:text-white">Grafana Monitoring</h3>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">Real-time system metrics — prediction latency, throughput, CPU/memory usage, and container health.</p>
+                            </div>
+                            <Image
+                                src="/fraud-detection/grafana.png"
+                                alt="Grafana monitoring dashboard"
+                                width={1200}
+                                height={800}
+                                className="w-full object-cover"
+                            />
+                        </div>
+                        <div className="rounded-xl border border-gray-200 dark:border-zinc-800 overflow-hidden">
+                            <div className="px-4 py-3 border-b border-gray-200 dark:border-zinc-800">
+                                <h3 className="text-sm font-medium text-black dark:text-white">Airflow Pipelines</h3>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">Orchestrated DAGs for drift detection, weekly retraining, and monthly hyperparameter tuning.</p>
+                            </div>
+                            <Image
+                                src="/fraud-detection/airflow.png"
+                                alt="Airflow pipeline dashboard"
+                                width={1200}
+                                height={800}
+                                className="w-full object-cover"
+                            />
+                        </div>
                     </div>
                 </motion.div>
 
