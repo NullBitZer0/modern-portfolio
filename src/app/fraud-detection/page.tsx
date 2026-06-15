@@ -117,6 +117,9 @@ export default function FraudDetection() {
                         <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                     </a>
                 </motion.div>
+                <p className="text-center text-xs text-gray-400 dark:text-gray-500 mb-12">
+                    Airflow login: <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400">viewer</code> / <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400">viewer</code>
+                </p>
 
                 {/* Repo Links */}
                 <motion.div
