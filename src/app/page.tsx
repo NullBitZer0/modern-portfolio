@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Github, Linkedin, Bot, User, QrCode, X, Music, Pause, Mail, ArrowRight } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
 import { ExperienceItem } from "@/components/ExperienceItem";
 import { TechStack } from "@/components/TechStack";
 import { useState, useEffect, useMemo, useRef } from "react";
@@ -541,6 +542,15 @@ export default function Home() {
           title="LinkedIn"
         >
           <Linkedin className="h-5 w-5" />
+        </a>
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
+          title="X / Twitter"
+        >
+          <FaXTwitter className="h-5 w-5" />
         </a>
         <a
           href="mailto:work@adeeshaperera.me"
