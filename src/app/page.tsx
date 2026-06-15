@@ -252,7 +252,7 @@ export default function Home() {
             {/* Bio */}
             <div className="w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
               <p>
-                An IT undergraduate and machine learning engineer who builds AI-powered systems using RAG, NLP, AI agents, and modern web tech.
+                A data science undergraduate and machine learning engineer who builds AI-powered systems using RAG, NLP, AI agents, and modern web tech.
               </p>
               <p>
                 Focused on bridging the gap between complex{" "}

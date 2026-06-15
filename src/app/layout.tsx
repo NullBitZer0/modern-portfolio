@@ -10,9 +10,9 @@ const dmSans = DM_Sans({
 });
 
 const siteUrl = "https://adeeshaperera.me";
-const siteName = "Adeesha Perera — AI Engineer & Full-Stack Developer";
+const siteName = "Adeesha Perera — ML & AI Engineer";
 const siteDescription =
-  "Portfolio of Adeesha Nishal Perera — AI Engineer, Full-Stack Developer, and IT undergraduate building intelligent systems with RAG, LLMs, automation, and modern web technologies. Self-hosted homelab enthusiast.";
+  "Portfolio of Adeesha Nishal Perera — ML & AI Engineer and data science undergraduate building intelligent systems with RAG, NLP, MLOps, AWS, and modern web technologies.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
