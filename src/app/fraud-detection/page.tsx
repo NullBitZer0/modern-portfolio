@@ -82,11 +82,47 @@ export default function FraudDetection() {
                     </p>
                 </motion.div>
 
-                {/* GitHub Link */}
+                {/* Live Demo Links */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.05 }}
+                    className="mb-6 flex justify-center gap-3 flex-wrap"
+                >
+                    <a
+                        href="https://dashboard.adeeshaperera.me"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black dark:bg-white text-white dark:text-black text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-all"
+                    >
+                        Live Dashboard
+                        <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    </a>
+                    <a
+                        href="https://grafana.adeeshaperera.me"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 dark:border-zinc-800 text-sm font-medium text-gray-600 dark:text-gray-400 hover:border-gray-400 dark:hover:border-zinc-600 hover:text-black dark:hover:text-white transition-all"
+                    >
+                        Grafana
+                        <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    </a>
+                    <a
+                        href="https://airflow.adeeshaperera.me"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 dark:border-zinc-800 text-sm font-medium text-gray-600 dark:text-gray-400 hover:border-gray-400 dark:hover:border-zinc-600 hover:text-black dark:hover:text-white transition-all"
+                    >
+                        Airflow
+                        <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    </a>
+                </motion.div>
+
+                {/* Repo Links */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.07 }}
                     className="mb-12 flex justify-center gap-3 flex-wrap"
                 >
                     <a
