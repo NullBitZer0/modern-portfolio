@@ -341,6 +341,30 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Certifications Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Certifications
+              </h2>
+              <div className="space-y-4">
+                {[
+                  { name: "AWS Machine Learning Associate", issuer: "Amazon Web Services" },
+                  { name: "Machine Learning Specialization", issuer: "DeepLearning.AI" },
+                  { name: "Deep Learning Specialization", issuer: "DeepLearning.AI" },
+                ].map((cert) => (
+                  <div
+                    key={cert.name}
+                    className="flex items-center justify-between p-4 rounded-xl border border-gray-200 dark:border-zinc-800"
+                  >
+                    <div>
+                      <h3 className="font-medium text-sm text-black dark:text-white">{cert.name}</h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{cert.issuer}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Tech Stack Section */}
             <div className="mb-16 w-full text-left">
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
