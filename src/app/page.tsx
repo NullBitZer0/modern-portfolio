@@ -466,7 +466,7 @@ export default function Home() {
                   </a>{" "}
                   or{" "} shoot an{" "}
                   <a
-                    href="mailto:work@adeeshaperera.me"
+                    href="mailto:contact@adeeshaperera.me"
                     className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
                   >
                     email
@@ -540,7 +540,7 @@ export default function Home() {
           <Linkedin className="h-5 w-5" />
         </a>
         <a
-          href="#"
+          href="https://x.com/MLwithAdeesha"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
@@ -549,7 +549,7 @@ export default function Home() {
           <FaXTwitter className="h-5 w-5" />
         </a>
         <a
-          href="mailto:work@adeeshaperera.me"
+          href="mailto:contact@adeeshaperera.me"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
           title="Email"
         >

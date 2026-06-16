@@ -57,7 +57,7 @@ Currently pursuing — Expected 2027
 
 ## Get in Touch
 
-Connect with me on [LinkedIn](https://linkedin.com/in/adeesha-perera-b9a614290) or shoot an [email](mailto:work@adeeshaperera.me)
+Connect with me on [LinkedIn](https://linkedin.com/in/adeesha-perera-b9a614290) or shoot an [email](mailto:contact@adeeshaperera.me)
 
 ---
 
@@ -65,5 +65,6 @@ Connect with me on [LinkedIn](https://linkedin.com/in/adeesha-perera-b9a614290) 
 - GitHub: [github.com/NullBitZer0](https://github.com/NullBitZer0)
 - LinkedIn: [linkedin.com/in/adeesha-perera-b9a614290](https://linkedin.com/in/adeesha-perera-b9a614290)
 - Medium: [medium.com/@adeeshapererabiz](https://medium.com/@adeeshapererabiz)
-- Email: work@adeeshaperera.me
+- X: [x.com/MLwithAdeesha](https://x.com/MLwithAdeesha)
+- Email: contact@adeeshaperera.me
 `;
