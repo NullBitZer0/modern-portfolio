@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, Send, User, X } from "lucide-react";
 
-const RAG_API_URL = process.env.NEXT_PUBLIC_RAG_API_URL || "http://uu046uuagdooowl3dmx12t97.140.245.59.209.sslip.io";
+const RAG_API_URL = "/api/query";
 
 type Message = {
     id: number;
