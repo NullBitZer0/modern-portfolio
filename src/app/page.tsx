@@ -18,7 +18,6 @@ export default function Home() {
   const [time, setTime] = useState<string>("");
   const [showQR, setShowQR] = useState(false);
   const [mode, setMode] = useState<"human" | "agent">("human");
-  const [showOnboarding, setShowOnboarding] = useState(false);
 
   const { resolvedTheme } = useTheme();
 
@@ -48,19 +47,6 @@ export default function Home() {
   const [isLofiPlaying, setIsLofiPlaying] = useState(false);
   const [lofiVolume, setLofiVolume] = useState(1);
 
-  // Onboarding tooltip: show every visit
-  useEffect(() => {
-    const showTimer = setTimeout(() => setShowOnboarding(true), 3000);
-    const hideTimer = setTimeout(() => setShowOnboarding(false), 9000);
-    return () => {
-      clearTimeout(showTimer);
-      clearTimeout(hideTimer);
-    };
-  }, []);
-
-  const dismissOnboarding = () => {
-    setShowOnboarding(false);
-  };
   const lofiRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -349,8 +335,6 @@ export default function Home() {
               <div className="space-y-4">
                 {[
                   { name: "AWS Machine Learning Associate", issuer: "Amazon Web Services" },
-                  { name: "Machine Learning Specialization", issuer: "DeepLearning.AI" },
-                  { name: "Deep Learning Specialization", issuer: "DeepLearning.AI" },
                 ].map((cert) => (
                   <div
                     key={cert.name}
@@ -403,18 +387,13 @@ export default function Home() {
                 Library
               </h2>
 
-              {/* Dev Subsection */}
-              <div className="mb-8">
-                <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">
-                  Dev
-                </h3>
-                <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                  {[
-                    { title: "Designing Data-Intensive Applications", author: "Martin Kleppmann" },
-                    { title: "Clean Code", author: "Robert C. Martin" },
-                    { title: "The Pragmatic Programmer", author: "David Thomas & Andrew Hunt" },
-                    { title: "System Design Interview", author: "Alex Xu" },
-                  ].map((book) => (
+              <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                {[
+                  { title: "Designing Data-Intensive Applications", author: "Martin Kleppmann" },
+                  { title: "AI Engineering", author: "Chip Huyen" },
+                  { title: "Machine Learning Systems", author: "Chip Huyen" },
+                  { title: "Hands-On Machine Learning with PyTorch and TensorFlow", author: "Aurélien Géron" },
+                ].map((book) => (
                     <div key={book.title} className="group flex flex-col gap-1 transition-all">
                       <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">
                         {book.title}
@@ -425,38 +404,12 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {/* AI & ML Subsection */}
-              <div className="mb-4">
-                <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-600">
-                  AI & ML
-                </h3>
-                <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                  {[
-                    { title: "Hands-On Machine Learning", author: "Aurélien Géron" },
-                    { title: "Deep Learning", author: "Ian Goodfellow et al." },
-                    { title: "AI Superpowers", author: "Kai-Fu Lee" },
-                    { title: "The Hundred-Page Machine Learning Book", author: "Andriy Burkov" },
-                  ].map((book) => (
-                    <div key={book.title} className="group flex flex-col gap-1 transition-all">
-                      <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">
-                        {book.title}
-                      </span>
-                      <span className="text-xs text-gray-400 dark:text-gray-500">
-                        {book.author}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
               {/* Note */}
               <p className="mt-6 text-xs italic text-gray-400 dark:text-gray-500">
                 *and many more — these are just some of my favorites
               </p>
             </div>
-
             {/* Thing about me Section */}
             <div className="mb-16 w-full text-left">
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
@@ -580,73 +533,6 @@ export default function Home() {
           <Mail className="h-5 w-5" />
         </a>
       </nav>
-
-      {/* Floating AI Assistant Button */}
-      <div className="fixed bottom-24 right-6 z-50">
-        {/* Onboarding Tooltip */}
-        <AnimatePresence>
-          {showOnboarding && (
-            <motion.div
-              initial={{ opacity: 0, y: 12, scale: 0.95 }}
-              animate={{
-                opacity: 1,
-                y: [0, -4, 0],
-                scale: 1,
-              }}
-              exit={{ opacity: 0, y: 6, scale: 0.95 }}
-              transition={{
-                opacity: { duration: 0.4 },
-                scale: { duration: 0.4 },
-                y: {
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                },
-              }}
-              className="absolute bottom-full mb-4 right-0 whitespace-nowrap"
-            >
-              <Link
-                href="/ai-assistant"
-                onClick={dismissOnboarding}
-                className="group flex items-center gap-2.5 rounded-full border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 backdrop-blur-md px-5 py-2.5 shadow-xl transition-all hover:border-black dark:hover:border-white hover:shadow-2xl"
-              >
-                {/* Pulsing green dot */}
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                </span>
-                <span className="text-sm font-semibold text-black dark:text-white">
-                  Ask my AI about me
-                </span>
-                <ArrowRight className="h-3.5 w-3.5 text-gray-500 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all duration-200" />
-              </Link>
-              {/* Caret arrow pointing down-right */}
-              <div className="absolute right-5 -bottom-[6px] h-0 w-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[7px] border-t-gray-300 dark:border-t-zinc-600" />
-              <div className="absolute right-5 -bottom-[5px] h-0 w-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-white dark:border-t-zinc-900" />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <Link
-          href="/ai-assistant"
-          className="group relative flex h-14 w-14 items-center justify-center rounded-full border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-lg backdrop-blur-md transition-all hover:shadow-xl hover:scale-110 hover:border-gray-400 dark:hover:border-zinc-500"
-          title="AI Assistant"
-        >
-          <Bot className="h-6 w-6 text-gray-600 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors" />
-          {/* Pulsing green status dot */}
-          <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500" />
-          </span>
-          {/* Glow rings while onboarding is visible */}
-          {showOnboarding && (
-            <>
-              <span className="absolute -inset-2 rounded-full border-2 border-emerald-400/30 animate-ping" />
-              <span className="absolute -inset-1 rounded-full bg-emerald-400/10 animate-pulse" />
-            </>
-          )}
-        </Link>
-      </div>
 
       {/* QR Code Modal */}
       {

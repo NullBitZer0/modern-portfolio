@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./providers";
+import { FloatingAssistant } from "@/components/FloatingAssistant";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -80,7 +81,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteName,
     description: siteDescription,
-    creator: "@adeesha_dev",
+    creator: "@MLwithAdeesha",
   },
   icons: {
     icon: [
@@ -108,6 +109,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           {children}
+          <FloatingAssistant />
         </ThemeProvider>
       </body>
     </html>
