@@ -42,7 +42,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`${RAG_API_URL}/query`, {
+            const response = await fetch(RAG_API_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ question: input }),
