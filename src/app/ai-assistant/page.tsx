@@ -6,10 +6,10 @@ import Link from "next/link";
 
 const components = [
     { layer: "Document Extraction", tech: "Docling Serve", detail: "PDF/DOCX/PPTX/HTML extraction with layout analysis, table structure, and OCR" },
-    { layer: "Document Ingestion", tech: "Worker Service", detail: "MinIO webhook triggers → Docling extraction → chunking (500 chars, 100 overlap) → ChromaDB + BM25 index" },
-    { layer: "Hybrid Retrieval", tech: "BM25 + Vector + Cross-Encoder", detail: "Keyword search (BM25 0.4) + semantic search (Vector 0.6) → RRF fusion → ms-marco-MiniLM re-ranking (Top 10 → Top 3)" },
+    { layer: "Document Ingestion", tech: "Worker Service", detail: "MinIO webhook triggers → Docling extraction → chunking (500 chars, 100 overlap) → Gemini embedding → OpenSearch index" },
+    { layer: "Hybrid Retrieval", tech: "OpenSearch (BM25 + k-NN) + Cohere", detail: "BM25 keyword search + k-NN dense vector search with RRF fusion → Cohere rerank-v3.5 (Top 10 → Top 3)" },
     { layer: "Query Transformation", tech: "Strategy Router", detail: "direct (skip LLM), rewrite (clarify vague), multi_query (alternative phrasings), step_back (broaden queries)" },
-    { layer: "Guardrails", tech: "Input/Output Safety", detail: "Prompt injection detection, harmful content filter, length validation, toxicity filter" },
+    { layer: "Guardrails", tech: "Input/Output Safety", detail: "Prompt injection detection, harmful content filter, length validation, portfolio-only classifier, toxicity filter" },
     { layer: "Generation", tech: "Groq LLM + Cache", detail: "llama-3.3-70b-versatile via Groq with in-memory LRU cache (1000 entries)" },
     { layer: "Observability", tech: "Langfuse", detail: "Full execution tracing, grading scores, guard results, cache hit logging" },
     { layer: "Evaluation", tech: "RAGAS", detail: "Faithfulness, answer relevancy, context precision, context recall, factual correctness" },
@@ -26,8 +26,8 @@ const apiEndpoints = [
 ];
 
 const techStack = [
-    "Python", "FastAPI", "LangChain", "Groq", "Hugging Face",
-    "ChromaDB", "BM25", "Cross-Encoder", "MinIO", "Docling",
+    "Python", "FastAPI", "LangChain", "Groq", "Gemini", "Cohere",
+    "OpenSearch", "BM25", "k-NN", "MinIO", "Docling",
     "Langfuse", "RAGAS", "Docker", "Docker Compose",
 ];
 
@@ -73,18 +73,18 @@ export default function AIAssistant() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 text-xs font-medium mb-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 text-xs font-medium mb-6">
                         <span className="relative flex h-2 w-2">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
-                            <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                         </span>
-                        In Progress
+                        Live
                     </div>
                     <h1 className="text-3xl md:text-5xl font-bold mb-4">
                         <span className="text-gray-400">Hybrid RAG</span> Portfolio Assistant
                     </h1>
                     <p className="text-gray-400 dark:text-gray-500 max-w-2xl mx-auto text-sm md:text-base">
-                        A production-grade Retrieval-Augmented Generation system with Docling document extraction, hybrid search (BM25 + vector), cross-encoder re-ranking, guardrails, and RAGAS evaluation.
+                        A production-grade Retrieval-Augmented Generation system with Docling document extraction, OpenSearch hybrid search (BM25 + k-NN), Cohere re-ranking, guardrails, and RAGAS evaluation.
                     </p>
                 </motion.div>
 
@@ -117,7 +117,7 @@ export default function AIAssistant() {
                     </h2>
                     <div className="space-y-4 text-base leading-relaxed text-gray-600 dark:text-gray-400">
                         <p>
-                            A production-grade RAG system that ingests documents from MinIO, extracts content with Docling, and indexes them into ChromaDB with a BM25 keyword index. Queries are transformed via a strategy router, retrieved with hybrid search (BM25 + vector fusion), re-ranked with a cross-encoder, and answered by Groq's llama-3.3-70b with guardrails and Langfuse tracing.
+                            A production-grade RAG system that ingests documents from MinIO, extracts content with Docling, embeds with Gemini (gemini-embedding-2, 768-dim), and indexes into OpenSearch for hybrid search. Queries are transformed via a strategy router, retrieved with BM25 + k-NN fusion, re-ranked with Cohere rerank-v3.5, and answered by Groq's llama-3.3-70b with guardrails and Langfuse tracing.
                         </p>
                     </div>
                 </motion.div>
