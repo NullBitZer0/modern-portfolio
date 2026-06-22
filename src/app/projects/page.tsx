@@ -4,7 +4,16 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
-const categories = [
+type Project = {
+  title: string;
+  description: string;
+  tech: string[];
+  github: string;
+  link?: string;
+  status?: string;
+};
+
+const categories: { name: string; description: string; projects: Project[] }[] = [
   {
     name: "Production & Portfolio",
     description: "End-to-end systems built for real-world use",
