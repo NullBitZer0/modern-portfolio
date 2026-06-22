@@ -70,6 +70,18 @@ const categories: { name: string; description: string; projects: Project[] }[] =
         tech: ["Kotlin", "Android Studio", "Room DB", "Material Design"],
         github: "https://github.com/NullBitZer0/Serenity_android_app",
       },
+      {
+        title: "Traffic Stability Analysis (LAR)",
+        description: "Statistical analysis of Look-Ahead Range impact on traffic flow stability — hypothesis testing, regression, and visualisation in R.",
+        tech: ["R", "ggplot2", "plotly", "rstatix"],
+        github: "https://github.com/NullBitZer0/look-ahead-research",
+      },
+      {
+        title: "ETL & Data Warehousing with Power BI",
+        description: "End-to-end ETL pipeline with Microsoft SSIS, OLAP cube, and Power BI dashboards for business analytics.",
+        tech: ["SSIS", "SQL Server", "Power BI", "OLAP Cube", "Excel"],
+        github: "https://github.com/NullBitZer0/etl-dw-powerbi-ssis-excel",
+      },
     ],
   },
   {
