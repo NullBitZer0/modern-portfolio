@@ -345,6 +345,29 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Leadership & Achievements Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Leadership & Achievements
+              </h2>
+              <div className="space-y-4">
+                {[
+                  { name: "Karate Black Belt", detail: "1st Dan — discipline, focus, and years of dedication" },
+                  { name: "Cadet Sergeant", detail: "Leadership, teamwork, and responsibility in a structured environment" },
+                ].map((item) => (
+                  <div
+                    key={item.name}
+                    className="flex items-center justify-between p-4 rounded-xl border border-gray-200 dark:border-zinc-800"
+                  >
+                    <div>
+                      <h3 className="font-medium text-sm text-black dark:text-white">{item.name}</h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{item.detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Tech Stack Section */}
             <div className="mb-16 w-full text-left">
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
