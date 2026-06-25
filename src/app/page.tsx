@@ -283,7 +283,7 @@ export default function Home() {
                 <Link href="/nvidia-report-analysis" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-black dark:text-white">NVIDIA Report Analysis</span>
+                      <span className="font-medium text-black dark:text-white">Book Recommendation System</span>
                       <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
                         In Progress
                       </span>
@@ -291,7 +291,7 @@ export default function Home() {
                     <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    NLP-based NVIDIA report analysis using FinBERT sentiment scoring, web scraping, LSTM OHLC prediction, and Telegram alerts.
+                    NCF-based collaborative filtering, BERT embeddings, NLP processing, deployed on AWS with Terraform IaC.
                   </p>
                 </Link>
               </div>
@@ -408,10 +408,8 @@ export default function Home() {
 
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                 {[
-                  { title: "Designing Data-Intensive Applications", author: "Martin Kleppmann" },
-                  { title: "AI Engineering", author: "Chip Huyen" },
-                  { title: "Machine Learning Systems", author: "Chip Huyen" },
                   { title: "Hands-On Machine Learning with PyTorch and TensorFlow", author: "Aurélien Géron" },
+                  { title: "Designing Machine Learning Systems", author: "Chip Huyen" },
                 ].map((book) => (
                     <div key={book.title} className="group flex flex-col gap-1 transition-all">
                       <span className="text-sm font-medium text-black dark:text-white group-hover:underline underline-offset-4 decoration-gray-200 dark:decoration-gray-800 transition-all">

@@ -143,16 +143,20 @@ const categories: { name: string; description: string; projects: Project[] }[] =
         github: "https://github.com/NullBitZer0/modern-portfolio",
       },
       {
-        title: "Movie Recommendation System",
-        description: "Comprehensive recommendation engine with KNN, SVD, SBERT content-based, and hybrid ensemble models on MovieLens data.",
-        tech: ["Scikit-learn", "Surprise", "SBERT", "Pandas", "Jupyter"],
-        github: "https://github.com/NullBitZer0/recommendation-system",
-      },
-      {
         title: "F1 Race Predictor",
         description: "Formula 1 race winner prediction using XGBoost regression on historical race data.",
         tech: ["XGBoost", "Pandas", "Scikit-learn"],
         github: "https://github.com/NullBitZer0/F1-predictions",
+      },
+      {
+        title: "Homelab Server",
+        description: "Self-hosted homelab on an old laptop — Nextcloud, Jellyfin, monitoring with Prometheus and Grafana. Learned Linux, Docker, and networking.",
+        tech: ["Ubuntu Server", "Docker", "Tailscale", "Prometheus", "Grafana"],
+      },
+      {
+        title: "Oracle Cloud AI Lab",
+        description: "Cloud infrastructure on OCI hosting AI/MLOps apps — RAG service, fraud detection API, and ML inference with Coolify and Docker.",
+        tech: ["Oracle Cloud", "Docker", "Coolify", "Cloudflare", "Kafka", "Grafana"],
       },
     ],
   },
