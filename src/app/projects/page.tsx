@@ -34,6 +34,14 @@ const categories: { name: string; description: string; projects: Project[] }[] =
         github: "https://github.com/NullBitZer0/ai-portfolio-assistant",
         status: "in-progress",
       },
+      {
+        title: "Book Recommendation System",
+        description: "NCF collaborative filtering, BERT embeddings, NLP processing, deployed on AWS with Terraform IaC.",
+        tech: ["NCF", "BERT", "FastAPI", "AWS", "Terraform", "Redis"],
+        link: "/book-recommendation",
+        github: "https://github.com/NullBitZer0/book-recommendation",
+        status: "in-progress",
+      },
     ],
   },
   {

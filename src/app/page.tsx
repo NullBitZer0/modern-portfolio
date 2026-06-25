@@ -280,7 +280,7 @@ export default function Home() {
                   </p>
                 </Link>
 
-                <Link href="/nvidia-report-analysis" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
+                <Link href="/book-recommendation" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <span className="font-medium text-black dark:text-white">Book Recommendation System</span>
