@@ -8,7 +8,7 @@ type Project = {
   title: string;
   description: string;
   tech: string[];
-  github: string;
+  github?: string;
   link?: string;
   status?: string;
 };
@@ -152,11 +152,13 @@ const categories: { name: string; description: string; projects: Project[] }[] =
         title: "Homelab Server",
         description: "Self-hosted homelab on an old laptop — Nextcloud, Jellyfin, monitoring with Prometheus and Grafana. Learned Linux, Docker, and networking.",
         tech: ["Ubuntu Server", "Docker", "Tailscale", "Prometheus", "Grafana"],
+        github: "https://github.com/NullBitZer0/home-server",
       },
       {
         title: "Oracle Cloud AI Lab",
         description: "Cloud infrastructure on OCI hosting AI/MLOps apps — RAG service, fraud detection API, and ML inference with Coolify and Docker.",
         tech: ["Oracle Cloud", "Docker", "Coolify", "Cloudflare", "Kafka", "Grafana"],
+        github: "https://github.com/NullBitZer0/oracle-cloud-ai-lab",
       },
     ],
   },
