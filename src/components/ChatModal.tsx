@@ -9,6 +9,8 @@ type Message = {
     id: number;
     text: string;
     sender: "user" | "ai";
+    sources?: string[];
+    pages?: string[];
 };
 
 type ChatModalProps = {
@@ -54,7 +56,9 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
             const aiMsg: Message = {
                 id: Date.now() + 1,
                 text: data.answer,
-                sender: "ai"
+                sender: "ai",
+                sources: data.sources || [],
+                pages: data.pages || [],
             };
             setMessages(prev => [...prev, aiMsg]);
         } catch {
@@ -129,7 +133,19 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                                         <div className={`mt-0.5 p-1 rounded-full shrink-0 ${msg.sender === "user" ? "bg-gray-200 dark:bg-zinc-700" : "bg-gray-100 dark:bg-zinc-700"}`}>
                                             {msg.sender === "user" ? <User size={12} /> : <Bot size={12} />}
                                         </div>
-                                        <p className="text-sm leading-relaxed">{msg.text}</p>
+                                        <div>
+                                            <p className="text-sm leading-relaxed">{msg.text}</p>
+                                            {msg.sender === "ai" && msg.sources && msg.sources.length > 0 && (
+                                                <div className="mt-2 pt-2 border-t border-gray-200 dark:border-zinc-700">
+                                                    <p className="text-[10px] text-gray-400 dark:text-zinc-500">
+                                                        Sources: {msg.sources.map((s, i) => {
+                                                            const name = s.split("/").pop() || s;
+                                                            return name;
+                                                        }).join(", ")}
+                                                    </p>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             ))}
