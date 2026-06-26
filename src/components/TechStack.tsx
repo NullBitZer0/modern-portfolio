@@ -31,7 +31,7 @@ const categories = [
             { name: "PostgreSQL", slug: "postgresql" },
             { name: "MongoDB", slug: "mongodb" },
             { name: "Redis", slug: "redis" },
-            { name: "Qdrant", slug: "qdrant" },
+            { name: "OpenSearch", slug: "opensearch" },
         ]
     },
     {
@@ -39,7 +39,6 @@ const categories = [
         skills: [
             { name: "Hugging Face", slug: "huggingface" },
             { name: "LangChain", slug: "langchain" },
-            { name: "LlamaIndex", slug: "llamaindex" },
             { name: "OpenAI", slug: "openai" },
             { name: "TensorFlow", slug: "tensorflow" },
             { name: "PyTorch", slug: "pytorch" },
@@ -57,7 +56,8 @@ const categories = [
             { name: "DAGsHub", slug: "dagshub" },
             { name: "DVC", slug: "dvc" },
             { name: "Apache Spark", slug: "apachespark" },
-            { name: "Databricks", slug: "databricks" },
+            { name: "AWS Glue", slug: "aws" },
+            { name: "Redshift", slug: "amazonredshift" },
             { name: "Apache Airflow", slug: "apacheairflow" },
         ]
     },
