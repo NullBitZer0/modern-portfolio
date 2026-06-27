@@ -1,10 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChatModal } from "./ChatModal";
+
+const projectPrompts: Record<string, string> = {
+    "/ai-assistant": "Tell me about the Agentic RAG Portfolio Assistant — what tech does it use, how does the architecture work, and what are its key features?",
+    "/fraud-detection": "Tell me about the Real-Time Fraud Detection project — what tech does it use and how does it work?",
+};
 
 export function FloatingAssistant() {
     const pathname = usePathname();
@@ -13,6 +18,7 @@ export function FloatingAssistant() {
     const [showOnboarding, setShowOnboarding] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [initialMessage, setInitialMessage] = useState<string | undefined>(undefined);
+    const hasAutoSent = useRef(false);
 
     // Onboarding tooltip: show every visit on home page
     useEffect(() => {
@@ -47,6 +53,16 @@ export function FloatingAssistant() {
         return () => window.removeEventListener("open-chat-with-message", handleMessage);
     }, []);
 
+    const openChat = () => {
+        // On project pages, auto-send prompt on first open
+        const prompt = projectPrompts[pathname];
+        if (prompt && !hasAutoSent.current) {
+            hasAutoSent.current = true;
+            setInitialMessage(prompt);
+        }
+        setIsChatOpen(true);
+    };
+
     const tooltipText = isHome ? "Ask my AI about me" : "Ask my AI about this project";
     const showTooltip = showOnboarding || highlight;
 
@@ -71,7 +87,7 @@ export function FloatingAssistant() {
                             className="absolute bottom-full mb-4 right-0 whitespace-nowrap"
                         >
                             <button
-                                onClick={() => setIsChatOpen(true)}
+                                onClick={openChat}
                                 className="group flex items-center gap-2.5 rounded-full border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 backdrop-blur-md px-5 py-2.5 shadow-xl transition-all hover:border-black dark:hover:border-white hover:shadow-2xl"
                             >
                                 <span className="relative flex h-2 w-2">
@@ -90,7 +106,7 @@ export function FloatingAssistant() {
                 </AnimatePresence>
 
                 <button
-                    onClick={() => setIsChatOpen(true)}
+                    onClick={openChat}
                     className={`group relative flex h-14 w-14 items-center justify-center rounded-full border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-lg backdrop-blur-md transition-all hover:shadow-xl hover:scale-110 hover:border-gray-400 dark:hover:border-zinc-500 ${highlight ? "scale-125 border-emerald-400 dark:border-emerald-500 shadow-emerald-400/50 shadow-2xl" : ""}`}
                     title="AI Assistant"
                 >
