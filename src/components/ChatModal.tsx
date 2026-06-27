@@ -16,16 +16,18 @@ type Message = {
 type ChatModalProps = {
     isOpen: boolean;
     onClose: () => void;
+    initialMessage?: string | null;
 };
 
-export function ChatModal({ isOpen, onClose }: ChatModalProps) {
+export function ChatModal({ isOpen, onClose, initialMessage }: ChatModalProps) {
     const [messages, setMessages] = useState<Message[]>([
         { id: 1, text: "Hello! I'm Adeesha's AI assistant. Ask me anything about his work or skills.", sender: "ai" }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const hasAutoSent = useRef(false);
+    const pendingMessage = useRef<string | null>(null);
+    const didSend = useRef(false);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -71,22 +73,25 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
         }
     }, []);
 
-    // Auto-send on first open when triggered via send-initial-message event
+    // When modal opens with an initialMessage, send it once
     useEffect(() => {
-        if (!isOpen) {
-            hasAutoSent.current = false;
-            return;
+        if (isOpen && initialMessage && !didSend.current) {
+            didSend.current = true;
+            pendingMessage.current = initialMessage;
+            // Wait for modal animation then send
+            const t = setTimeout(() => {
+                if (pendingMessage.current) {
+                    sendMessage(pendingMessage.current);
+                    pendingMessage.current = null;
+                }
+            }, 400);
+            return () => clearTimeout(t);
         }
-        const handler = (e: Event) => {
-            const msg = (e as CustomEvent).detail;
-            if (msg && !hasAutoSent.current) {
-                hasAutoSent.current = true;
-                sendMessage(msg);
-            }
-        };
-        window.addEventListener("send-initial-message", handler);
-        return () => window.removeEventListener("send-initial-message", handler);
-    }, [isOpen, sendMessage]);
+        if (!isOpen) {
+            didSend.current = false;
+            pendingMessage.current = null;
+        }
+    }, [isOpen, initialMessage, sendMessage]);
 
     const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -103,7 +108,6 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                     exit={{ opacity: 0 }}
                     className="fixed inset-0 z-[100] flex items-end justify-end p-4 sm:p-6"
                 >
-                    {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -112,7 +116,6 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                         onClick={onClose}
                     />
 
-                    {/* Chat Window */}
                     <motion.div
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -120,7 +123,6 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                         transition={{ duration: 0.2 }}
                         className="relative w-full max-w-md h-[500px] flex flex-col bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl shadow-2xl overflow-hidden"
                     >
-                        {/* Header */}
                         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-zinc-800">
                             <div className="flex items-center gap-2">
                                 <div className="p-1.5 rounded-full bg-gray-100 dark:bg-zinc-800">
@@ -140,7 +142,6 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                             </button>
                         </div>
 
-                        {/* Messages */}
                         <div className="flex-grow overflow-y-auto p-4 space-y-3">
                             {messages.map((msg) => (
                                 <div
@@ -173,7 +174,6 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                             <div ref={messagesEndRef} />
                         </div>
 
-                        {/* Input */}
                         <div className="p-3 border-t border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
                             <form onSubmit={handleSend} className="relative">
                                 <input

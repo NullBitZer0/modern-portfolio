@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -17,9 +17,9 @@ export function FloatingAssistant() {
     const [highlight, setHighlight] = useState(false);
     const [showOnboarding, setShowOnboarding] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
-    const hasAutoSent = useRef(false);
+    const [autoMessage, setAutoMessage] = useState<string | null>(null);
+    const [hasAutoSent, setHasAutoSent] = useState(false);
 
-    // Onboarding tooltip: show every visit on home page
     useEffect(() => {
         if (isHome) {
             const showTimer = setTimeout(() => setShowOnboarding(true), 3000);
@@ -31,7 +31,6 @@ export function FloatingAssistant() {
         }
     }, [isHome]);
 
-    // Listen for highlight-assistant event from project pages
     useEffect(() => {
         const handleHighlight = () => {
             setHighlight(true);
@@ -45,28 +44,27 @@ export function FloatingAssistant() {
     useEffect(() => {
         const handleMessage = (e: Event) => {
             const msg = (e as CustomEvent).detail;
+            setAutoMessage(msg);
             setIsChatOpen(true);
-            setTimeout(() => {
-                window.dispatchEvent(new CustomEvent("send-initial-message", { detail: msg }));
-            }, 100);
         };
         window.addEventListener("open-chat-with-message", handleMessage);
         return () => window.removeEventListener("open-chat-with-message", handleMessage);
     }, []);
 
     const openChat = () => {
-        // On project pages, auto-send prompt on first open
         const prompt = projectPrompts[pathname];
-        if (prompt && !hasAutoSent.current) {
-            hasAutoSent.current = true;
-            setIsChatOpen(true);
-            // Tell ChatModal to auto-send this prompt
-            setTimeout(() => {
-                window.dispatchEvent(new CustomEvent("send-initial-message", { detail: prompt }));
-            }, 100);
-            return;
+        if (prompt && !hasAutoSent) {
+            setHasAutoSent(true);
+            setAutoMessage(prompt);
+        } else {
+            setAutoMessage(null);
         }
         setIsChatOpen(true);
+    };
+
+    const closeChat = () => {
+        setIsChatOpen(false);
+        setAutoMessage(null);
     };
 
     const tooltipText = isHome ? "Ask my AI about me" : "Ask my AI about this project";
@@ -130,7 +128,7 @@ export function FloatingAssistant() {
                 </button>
             </div>
 
-            <ChatModal isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+            <ChatModal isOpen={isChatOpen} onClose={closeChat} initialMessage={autoMessage} />
         </>
     );
 }
