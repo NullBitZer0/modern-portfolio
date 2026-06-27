@@ -4,38 +4,56 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Bot, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+const ARCHITECTURE_IMG = "https://raw.githubusercontent.com/NullBitZer0/portfolio-hybrid-rag/main/images/architecture.png";
+
 const components = [
-    { layer: "Document Extraction", tech: "Docling Serve", detail: "PDF/DOCX/PPTX/HTML extraction with layout analysis, table structure, and OCR" },
-    { layer: "Document Ingestion", tech: "Worker Service", detail: "MinIO webhook triggers → Docling extraction → chunking (500 chars, 100 overlap) → Gemini embedding → OpenSearch index" },
-    { layer: "Hybrid Retrieval", tech: "OpenSearch (BM25 + k-NN) + Cohere", detail: "BM25 keyword search + k-NN dense vector search with RRF fusion → Cohere rerank-v3.5 (Top 10 → Top 3)" },
-    { layer: "Query Transformation", tech: "Strategy Router", detail: "direct (skip LLM), rewrite (clarify vague), multi_query (alternative phrasings), step_back (broaden queries)" },
-    { layer: "Guardrails", tech: "Input/Output Safety", detail: "Prompt injection detection, harmful content filter, length validation, portfolio-only classifier, toxicity filter" },
-    { layer: "Generation", tech: "Groq LLM + Cache", detail: "llama-3.3-70b-versatile via Groq with in-memory LRU cache (1000 entries)" },
-    { layer: "Observability", tech: "Langfuse", detail: "Full execution tracing, grading scores, guard results, cache hit logging" },
-    { layer: "Evaluation", tech: "RAGAS", detail: "Faithfulness, answer relevancy, context precision, context recall, factual correctness" },
+    { layer: "Input Guardrails", tech: "Custom Regex + LLM", detail: "Prompt injection detection, harmful content filter, length validation" },
+    { layer: "Portfolio Classifier", tech: "Keyword + LLM Fallback", detail: "Blocks general knowledge — only answers questions about Adeesha's work" },
+    { layer: "LangGraph Agent", tech: "StateGraph + 5 Tools", detail: "LLM decides which tools to call based on query intent. Max 2 retrieval rounds." },
+    { layer: "Hybrid Retrieval", tech: "OpenSearch (BM25 + k-NN)", detail: "BM25 keyword search + k-NN dense vector search with RRF fusion" },
+    { layer: "Reranking", tech: "Cohere rerank-v3.5", detail: "Top 10 results narrowed to top 3 most relevant" },
+    { layer: "Generation", tech: "Groq gpt-oss-120b + Gemini Fallback", detail: "Primary LLM with automatic fallback to Gemini 2.5 Flash on rate limits" },
+    { layer: "Caching", tech: "Upstash Redis", detail: "LLM response cache (1hr TTL) + conversation memory (24hr TTL)" },
+    { layer: "Observability", tech: "Langfuse", detail: "Full execution tracing, prompt versioning, grading scores" },
+];
+
+const agentTools = [
+    { tool: "search_all", description: "Search all documents — default for most queries" },
+    { tool: "search_projects", description: "Focus on project documents only" },
+    { tool: "search_skills", description: "Focus on skills/resume documents" },
+    { tool: "search_source", description: "Search a specific file by name" },
+    { tool: "list_documents", description: "Show what's available in the index" },
 ];
 
 const apiEndpoints = [
-    { method: "POST", path: "/query", description: "Ask a question" },
-    { method: "POST", path: "/upload?folder=", description: "Upload file to MinIO" },
-    { method: "POST", path: "/upload-url?folder=", description: "Download from URL, store in MinIO" },
+    { method: "GET", path: "/", description: "Health check (OpenSearch, MinIO, Redis)" },
+    { method: "POST", path: "/query", description: "Ask a question (body: {question, source_filter?})" },
+    { method: "POST", path: "/upload?folder=", description: "Upload file to MinIO (max 20MB)" },
     { method: "GET", path: "/files?folder=", description: "List files (optional folder filter)" },
-    { method: "DELETE", path: "/files/{folder}/{filename}", description: "Delete file from MinIO" },
-    { method: "POST", path: "/reindex", description: "Trigger full reindex on worker" },
+    { method: "DELETE", path: "/files/{folder}/{filename}", description: "Delete file + reindex" },
+    { method: "POST", path: "/reindex", description: "Full reindex from MinIO" },
     { method: "POST", path: "/clear-memory", description: "Clear conversation history" },
+    { method: "POST", path: "/clear-cache", description: "Clear LLM response cache" },
 ];
 
 const techStack = [
-    "Python", "FastAPI", "LangChain", "Groq", "Gemini", "Cohere",
-    "OpenSearch", "BM25", "k-NN", "MinIO", "Docling",
-    "Langfuse", "RAGAS", "Docker", "Docker Compose",
+    "Python 3.13", "FastAPI", "LangGraph", "LangChain", "Groq gpt-oss-120b",
+    "Gemini 2.5 Flash", "Gemini Embedding", "Cohere rerank-v3.5",
+    "OpenSearch 2.19", "BM25 + k-NN", "MinIO", "Docling",
+    "Upstash Redis", "Langfuse", "RAGAS", "Docker Compose", "Coolify",
 ];
 
-const queryStrategies = [
-    { strategy: "direct", trigger: "Clear, specific query", action: "No transformation", llm: "No" },
-    { strategy: "rewrite", trigger: "Ambiguous questions", action: "LLM clarifies the question", llm: "Yes" },
-    { strategy: "multi_query", trigger: "Vague/short queries", action: "Generate 2-3 alternative phrasings", llm: "Yes" },
-    { strategy: "step_back", trigger: "Specific how-to questions", action: "Broaden for foundational context", llm: "Yes" },
+const features = [
+    { feature: "Agentic RAG", detail: "LangGraph StateGraph with tool routing and multi-step retrieval" },
+    { feature: "Parent-Child Chunking", detail: "2000 char parents (LLM context) + 500 char children (search precision)" },
+    { feature: "Query Expansion", detail: "Synonym-based expansion for better BM25 recall" },
+    { feature: "API Key Auth", detail: "X-API-Key header on all endpoints (health check open)" },
+    { feature: "Rate Limiting", detail: "5 requests/min per IP" },
+    { feature: "Gemini Fallback", detail: "Groq primary, Gemini 2.5 Flash on rate limit/connection errors" },
+    { feature: "Tenacity Retry", detail: "3 attempts, exponential backoff on all external APIs" },
+    { feature: "Tool Result Caching", detail: "In-memory 5min TTL avoids redundant search + rerank calls" },
+    { feature: "Chunk Deduplication", detail: "Delete existing chunks before re-indexing" },
+    { feature: "Structured Logging", detail: "logging module with per-module loggers (rag.graph, rag.tools, etc.)" },
 ];
 
 const evaluationMetrics = [
@@ -81,10 +99,10 @@ export default function AIAssistant() {
                         Live
                     </div>
                     <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                        <span className="text-gray-400">Hybrid RAG</span> Portfolio Assistant
+                        <span className="text-gray-400">Agentic RAG</span> Portfolio Assistant
                     </h1>
                     <p className="text-gray-400 dark:text-gray-500 max-w-2xl mx-auto text-sm md:text-base">
-                        A production-grade Retrieval-Augmented Generation system with Docling document extraction, OpenSearch hybrid search (BM25 + k-NN), Cohere re-ranking, guardrails, and RAGAS evaluation.
+                        A production-grade Agentic RAG system with LangGraph agent, Docling extraction, OpenSearch hybrid search, Cohere reranking, Redis caching, and RAGAS evaluation.
                     </p>
                 </motion.div>
 
@@ -105,7 +123,7 @@ export default function AIAssistant() {
                     </button>
                 </motion.div>
 
-                {/* Overview */}
+                {/* Architecture Image */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -113,16 +131,18 @@ export default function AIAssistant() {
                     className="mb-12"
                 >
                     <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
-                        Overview
+                        System Architecture
                     </h2>
-                    <div className="space-y-4 text-base leading-relaxed text-gray-600 dark:text-gray-400">
-                        <p>
-                            A production-grade RAG system that ingests documents from MinIO, extracts content with Docling, embeds with Gemini (gemini-embedding-2, 768-dim), and indexes into OpenSearch for hybrid search. Queries are transformed via a strategy router, retrieved with BM25 + k-NN fusion, re-ranked with Cohere rerank-v3.5, and answered by Groq's llama-3.3-70b with guardrails and Langfuse tracing.
-                        </p>
+                    <div className="rounded-xl border border-gray-200 dark:border-zinc-800 overflow-hidden">
+                        <img
+                            src={ARCHITECTURE_IMG}
+                            alt="Agentic RAG Architecture"
+                            className="w-full h-auto"
+                        />
                     </div>
                 </motion.div>
 
-                {/* System Architecture */}
+                {/* Overview */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -130,7 +150,27 @@ export default function AIAssistant() {
                     className="mb-12"
                 >
                     <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
-                        System Architecture
+                        Overview
+                    </h2>
+                    <div className="space-y-4 text-base leading-relaxed text-gray-600 dark:text-gray-400">
+                        <p>
+                            A recruiter visits my portfolio, clicks the AI assistant, and asks questions about my projects, skills, and experience. The system retrieves relevant information from my documents and generates accurate, grounded answers in seconds.
+                        </p>
+                        <p>
+                            Unlike linear RAG pipelines, this system uses a <strong className="text-black dark:text-white">LangGraph agent</strong> that reasons about which tools to call. The agent can search all documents, focus on specific categories, or look up a single file — then decide if it needs to retrieve again before generating an answer.
+                        </p>
+                    </div>
+                </motion.div>
+
+                {/* System Components */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.14 }}
+                    className="mb-12"
+                >
+                    <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
+                        System Components
                     </h2>
                     <div className="space-y-3">
                         {components.map((item, index) => (
@@ -153,37 +193,29 @@ export default function AIAssistant() {
                     </div>
                 </motion.div>
 
-                {/* Query Strategies */}
+                {/* Agent Tools */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15 }}
+                    transition={{ delay: 0.16 }}
                     className="mb-12"
                 >
                     <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
-                        Query Transformation Strategies
+                        Agent Tools
                     </h2>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
                                 <tr className="border-b border-gray-200 dark:border-zinc-800">
-                                    <th className="text-left py-3 px-4 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">Strategy</th>
-                                    <th className="text-left py-3 px-4 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">Trigger</th>
-                                    <th className="text-left py-3 px-4 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">Action</th>
-                                    <th className="text-left py-3 px-4 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">LLM Call</th>
+                                    <th className="text-left py-3 px-4 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">Tool</th>
+                                    <th className="text-left py-3 px-4 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">Description</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {queryStrategies.map((s) => (
-                                    <tr key={s.strategy} className="border-b border-gray-100 dark:border-zinc-900">
-                                        <td className="py-3 px-4 font-medium text-black dark:text-white">{s.strategy}</td>
-                                        <td className="py-3 px-4 text-gray-500 dark:text-gray-400">{s.trigger}</td>
-                                        <td className="py-3 px-4 text-gray-500 dark:text-gray-400">{s.action}</td>
-                                        <td className="py-3 px-4">
-                                            <span className={`text-xs px-2 py-0.5 rounded-full ${s.llm === "Yes" ? "bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400" : "bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400"}`}>
-                                                {s.llm}
-                                            </span>
-                                        </td>
+                                {agentTools.map((t) => (
+                                    <tr key={t.tool} className="border-b border-gray-100 dark:border-zinc-900">
+                                        <td className="py-3 px-4 font-medium text-black dark:text-white font-mono text-xs">{t.tool}</td>
+                                        <td className="py-3 px-4 text-gray-500 dark:text-gray-400">{t.description}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -191,11 +223,31 @@ export default function AIAssistant() {
                     </div>
                 </motion.div>
 
-                {/* API Endpoints */}
+                {/* Key Features */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.18 }}
+                    className="mb-12"
+                >
+                    <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
+                        Key Features
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {features.map((f) => (
+                            <div key={f.feature} className="p-4 rounded-xl border border-gray-200 dark:border-zinc-800">
+                                <h3 className="font-medium text-sm text-black dark:text-white mb-1">{f.feature}</h3>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">{f.detail}</p>
+                            </div>
+                        ))}
+                    </div>
+                </motion.div>
+
+                {/* API Endpoints */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.20 }}
                     className="mb-12"
                 >
                     <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
@@ -221,7 +273,7 @@ export default function AIAssistant() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.21 }}
+                    transition={{ delay: 0.22 }}
                     className="mb-12"
                 >
                     <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
