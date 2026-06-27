@@ -14,8 +14,11 @@ export async function POST(req: NextRequest) {
             body: JSON.stringify(body),
         });
         const data = await response.json();
+        if (!response.ok) {
+            return NextResponse.json(data, { status: response.status });
+        }
         return NextResponse.json(data);
-    } catch {
-        return NextResponse.json({ error: "Failed to reach RAG backend" }, { status: 502 });
+    } catch (e) {
+        return NextResponse.json({ error: "Failed to reach RAG backend", detail: String(e) }, { status: 502 });
     }
 }

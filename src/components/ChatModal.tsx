@@ -50,7 +50,10 @@ export function ChatModal({ isOpen, onClose, initialMessage }: ChatModalProps) {
                 body: JSON.stringify({ question: text }),
             });
 
-            if (!response.ok) throw new Error("Failed to get response");
+            if (!response.ok) {
+                const errData = await response.json().catch(() => null);
+                throw new Error(errData?.detail || errData?.error || "Failed to get response");
+            }
 
             const data = await response.json();
             const aiMsg: Message = {
@@ -61,10 +64,10 @@ export function ChatModal({ isOpen, onClose, initialMessage }: ChatModalProps) {
                 pages: data.pages || [],
             };
             setMessages(prev => [...prev, aiMsg]);
-        } catch {
+        } catch (err) {
             const errorMsg: Message = {
                 id: Date.now() + 1,
-                text: "Sorry, I'm having trouble connecting to the backend. Please try again later.",
+                text: err instanceof Error ? err.message : "Sorry, I'm having trouble connecting to the backend. Please try again later.",
                 sender: "ai"
             };
             setMessages(prev => [...prev, errorMsg]);
