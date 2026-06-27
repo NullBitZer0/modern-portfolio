@@ -17,7 +17,6 @@ export function FloatingAssistant() {
     const [highlight, setHighlight] = useState(false);
     const [showOnboarding, setShowOnboarding] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
-    const [initialMessage, setInitialMessage] = useState<string | undefined>(undefined);
     const hasAutoSent = useRef(false);
 
     // Onboarding tooltip: show every visit on home page
@@ -46,8 +45,10 @@ export function FloatingAssistant() {
     useEffect(() => {
         const handleMessage = (e: Event) => {
             const msg = (e as CustomEvent).detail;
-            setInitialMessage(msg);
             setIsChatOpen(true);
+            setTimeout(() => {
+                window.dispatchEvent(new CustomEvent("send-initial-message", { detail: msg }));
+            }, 100);
         };
         window.addEventListener("open-chat-with-message", handleMessage);
         return () => window.removeEventListener("open-chat-with-message", handleMessage);
@@ -129,7 +130,7 @@ export function FloatingAssistant() {
                 </button>
             </div>
 
-            <ChatModal isOpen={isChatOpen} onClose={() => { setIsChatOpen(false); setInitialMessage(undefined); }} initialMessage={initialMessage} />
+            <ChatModal isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
         </>
     );
 }

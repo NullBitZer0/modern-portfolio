@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, Send, User, X } from "lucide-react";
 
@@ -16,16 +16,16 @@ type Message = {
 type ChatModalProps = {
     isOpen: boolean;
     onClose: () => void;
-    initialMessage?: string;
 };
 
-export function ChatModal({ isOpen, onClose, initialMessage }: ChatModalProps) {
+export function ChatModal({ isOpen, onClose }: ChatModalProps) {
     const [messages, setMessages] = useState<Message[]>([
         { id: 1, text: "Hello! I'm Adeesha's AI assistant. Ask me anything about his work or skills.", sender: "ai" }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const hasAutoSent = useRef(false);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -35,19 +35,7 @@ export function ChatModal({ isOpen, onClose, initialMessage }: ChatModalProps) {
         scrollToBottom();
     }, [messages]);
 
-    // Listen for send-initial-message event (from FloatingAssistant auto-send)
-    useEffect(() => {
-        const handler = (e: Event) => {
-            const msg = (e as CustomEvent).detail;
-            if (msg) {
-                setTimeout(() => sendMessage(msg), 300);
-            }
-        };
-        window.addEventListener("send-initial-message", handler);
-        return () => window.removeEventListener("send-initial-message", handler);
-    }, []);
-
-    const sendMessage = async (text: string) => {
+    const sendMessage = useCallback(async (text: string) => {
         const userMsg: Message = { id: Date.now(), text, sender: "user" };
         setMessages(prev => [...prev, userMsg]);
         setInput("");
@@ -81,7 +69,24 @@ export function ChatModal({ isOpen, onClose, initialMessage }: ChatModalProps) {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, []);
+
+    // Auto-send on first open when triggered via send-initial-message event
+    useEffect(() => {
+        if (!isOpen) {
+            hasAutoSent.current = false;
+            return;
+        }
+        const handler = (e: Event) => {
+            const msg = (e as CustomEvent).detail;
+            if (msg && !hasAutoSent.current) {
+                hasAutoSent.current = true;
+                sendMessage(msg);
+            }
+        };
+        window.addEventListener("send-initial-message", handler);
+        return () => window.removeEventListener("send-initial-message", handler);
+    }, [isOpen, sendMessage]);
 
     const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -154,7 +159,7 @@ export function ChatModal({ isOpen, onClose, initialMessage }: ChatModalProps) {
                                             {msg.sender === "ai" && msg.sources && msg.sources.length > 0 && (
                                                 <div className="mt-2 pt-2 border-t border-gray-200 dark:border-zinc-700">
                                                     <p className="text-[10px] text-gray-400 dark:text-zinc-500">
-                                                        Sources: {msg.sources.map((s, i) => {
+                                                        Sources: {msg.sources.map((s) => {
                                                             const name = s.split("/").pop() || s;
                                                             return name;
                                                         }).join(", ")}
