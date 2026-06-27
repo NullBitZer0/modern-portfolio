@@ -66,8 +66,9 @@ const evaluationMetrics = [
 
 export default function AIAssistant() {
     const handleDemo = () => {
-        const event = new CustomEvent("highlight-assistant");
-        window.dispatchEvent(event);
+        window.dispatchEvent(new CustomEvent("open-chat-with-message", {
+            detail: "Tell me about the Agentic RAG Portfolio Assistant — what tech does it use, how does the architecture work, and what are its key features?"
+        }));
     };
 
     return (
