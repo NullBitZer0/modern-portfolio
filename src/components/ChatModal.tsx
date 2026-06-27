@@ -26,7 +26,6 @@ export function ChatModal({ isOpen, onClose, initialMessage }: ChatModalProps) {
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const hasSentInitial = useRef(false);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -36,20 +35,17 @@ export function ChatModal({ isOpen, onClose, initialMessage }: ChatModalProps) {
         scrollToBottom();
     }, [messages]);
 
-    // Auto-send initial message when modal opens with one
+    // Listen for send-initial-message event (from FloatingAssistant auto-send)
     useEffect(() => {
-        if (isOpen && initialMessage && !hasSentInitial.current) {
-            hasSentInitial.current = true;
-            // Small delay to let modal animate in
-            const timer = setTimeout(() => {
-                sendMessage(initialMessage);
-            }, 300);
-            return () => clearTimeout(timer);
-        }
-        if (!isOpen) {
-            hasSentInitial.current = false;
-        }
-    }, [isOpen, initialMessage]);
+        const handler = (e: Event) => {
+            const msg = (e as CustomEvent).detail;
+            if (msg) {
+                setTimeout(() => sendMessage(msg), 300);
+            }
+        };
+        window.addEventListener("send-initial-message", handler);
+        return () => window.removeEventListener("send-initial-message", handler);
+    }, []);
 
     const sendMessage = async (text: string) => {
         const userMsg: Message = { id: Date.now(), text, sender: "user" };

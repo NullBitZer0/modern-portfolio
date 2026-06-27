@@ -58,7 +58,12 @@ export function FloatingAssistant() {
         const prompt = projectPrompts[pathname];
         if (prompt && !hasAutoSent.current) {
             hasAutoSent.current = true;
-            setInitialMessage(prompt);
+            setIsChatOpen(true);
+            // Tell ChatModal to auto-send this prompt
+            setTimeout(() => {
+                window.dispatchEvent(new CustomEvent("send-initial-message", { detail: prompt }));
+            }, 100);
+            return;
         }
         setIsChatOpen(true);
     };
