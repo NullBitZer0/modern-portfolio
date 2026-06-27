@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Github, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, Github, ExternalLink, Bot } from "lucide-react";
 import Link from "next/link";
 
 type Project = {
@@ -11,6 +11,7 @@ type Project = {
   github?: string;
   link?: string;
   status?: string;
+  prompt?: string;
 };
 
 const categories: { name: string; description: string; projects: Project[] }[] = [
@@ -33,6 +34,7 @@ const categories: { name: string; description: string; projects: Project[] }[] =
         link: "/ai-assistant",
         github: "https://github.com/NullBitZer0/ai-portfolio-assistant",
         status: "in-progress",
+        prompt: "Tell me about the Agentic RAG Portfolio Assistant project — what tech does it use and how does it work?",
       },
       {
         title: "Book Recommendation System",
@@ -274,6 +276,17 @@ export default function ProjectsPage() {
                             >
                               <ExternalLink className="h-4 w-4" />
                             </Link>
+                          )}
+                          {project.prompt && (
+                            <button
+                              onClick={() => {
+                                window.dispatchEvent(new CustomEvent("open-chat-with-message", { detail: project.prompt }));
+                              }}
+                              className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors"
+                            >
+                              <Bot className="h-3 w-3" />
+                              Ask AI
+                            </button>
                           )}
                         </div>
                       </div>

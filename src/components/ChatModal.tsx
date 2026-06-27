@@ -16,15 +16,17 @@ type Message = {
 type ChatModalProps = {
     isOpen: boolean;
     onClose: () => void;
+    initialMessage?: string;
 };
 
-export function ChatModal({ isOpen, onClose }: ChatModalProps) {
+export function ChatModal({ isOpen, onClose, initialMessage }: ChatModalProps) {
     const [messages, setMessages] = useState<Message[]>([
         { id: 1, text: "Hello! I'm Adeesha's AI assistant. Ask me anything about his work or skills.", sender: "ai" }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const hasSentInitial = useRef(false);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -34,11 +36,23 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
         scrollToBottom();
     }, [messages]);
 
-    const handleSend = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!input.trim() || isLoading) return;
+    // Auto-send initial message when modal opens with one
+    useEffect(() => {
+        if (isOpen && initialMessage && !hasSentInitial.current) {
+            hasSentInitial.current = true;
+            // Small delay to let modal animate in
+            const timer = setTimeout(() => {
+                sendMessage(initialMessage);
+            }, 300);
+            return () => clearTimeout(timer);
+        }
+        if (!isOpen) {
+            hasSentInitial.current = false;
+        }
+    }, [isOpen, initialMessage]);
 
-        const userMsg: Message = { id: Date.now(), text: input, sender: "user" };
+    const sendMessage = async (text: string) => {
+        const userMsg: Message = { id: Date.now(), text, sender: "user" };
         setMessages(prev => [...prev, userMsg]);
         setInput("");
         setIsLoading(true);
@@ -47,7 +61,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
             const response = await fetch(RAG_API_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ question: input }),
+                body: JSON.stringify({ question: text }),
             });
 
             if (!response.ok) throw new Error("Failed to get response");
@@ -71,6 +85,12 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleSend = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!input.trim() || isLoading) return;
+        await sendMessage(input);
     };
 
     return (

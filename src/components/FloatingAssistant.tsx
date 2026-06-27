@@ -12,6 +12,7 @@ export function FloatingAssistant() {
     const [highlight, setHighlight] = useState(false);
     const [showOnboarding, setShowOnboarding] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const [initialMessage, setInitialMessage] = useState<string | undefined>(undefined);
 
     // Onboarding tooltip: show every visit on home page
     useEffect(() => {
@@ -33,6 +34,17 @@ export function FloatingAssistant() {
         };
         window.addEventListener("highlight-assistant", handleHighlight);
         return () => window.removeEventListener("highlight-assistant", handleHighlight);
+    }, []);
+
+    // Listen for open-chat-with-message event from project cards
+    useEffect(() => {
+        const handleMessage = (e: Event) => {
+            const msg = (e as CustomEvent).detail;
+            setInitialMessage(msg);
+            setIsChatOpen(true);
+        };
+        window.addEventListener("open-chat-with-message", handleMessage);
+        return () => window.removeEventListener("open-chat-with-message", handleMessage);
     }, []);
 
     const tooltipText = isHome ? "Ask my AI about me" : "Ask my AI about this project";
@@ -96,7 +108,7 @@ export function FloatingAssistant() {
                 </button>
             </div>
 
-            <ChatModal isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+            <ChatModal isOpen={isChatOpen} onClose={() => { setIsChatOpen(false); setInitialMessage(undefined); }} initialMessage={initialMessage} />
         </>
     );
 }
