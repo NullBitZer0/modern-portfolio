@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Bot, ArrowRight } from "lucide-react";
+import { ArrowLeft, Bot, ArrowRight, Github } from "lucide-react";
 import Link from "next/link";
 
 const ARCHITECTURE_IMG = "https://raw.githubusercontent.com/NullBitZer0/portfolio-hybrid-rag/main/images/architecture.png";
@@ -120,6 +120,26 @@ export default function AIAssistant() {
                         Try Live Demo
                         <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                     </button>
+                    <div className="mt-4 flex items-center justify-center gap-4">
+                        <a
+                            href="https://github.com/NullBitZer0/portfolio-hybrid-rag"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+                        >
+                            <Github className="h-4 w-4" />
+                            View on GitHub
+                        </a>
+                        <a
+                            href="https://medium.com/@adeeshapererabiz/i-built-an-ai-assistant-that-answers-questions-about-my-portfolio-1ff196fef110"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+                        >
+                            <ArrowRight className="h-4 w-4" />
+                            Read on Medium
+                        </a>
+                    </div>
                 </motion.div>
 
                 {/* Architecture Image */}
