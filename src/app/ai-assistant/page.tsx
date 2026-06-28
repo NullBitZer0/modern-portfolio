@@ -110,7 +110,7 @@ export default function AIAssistant() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.05 }}
-                    className="mb-12 flex justify-center"
+                    className="mb-12 flex flex-col items-center gap-4"
                 >
                     <button
                         onClick={handleDemo}
@@ -120,7 +120,7 @@ export default function AIAssistant() {
                         Try Live Demo
                         <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                     </button>
-                    <div className="mt-4 flex items-center justify-center gap-4">
+                    <div className="flex items-center justify-center gap-4">
                         <a
                             href="https://github.com/NullBitZer0/portfolio-hybrid-rag"
                             target="_blank"
