@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "./providers";
 import { FloatingAssistant } from "@/components/FloatingAssistant";
@@ -104,6 +105,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="17f8e134-7d71-446b-8998-a0821ed9c6a4"
+        />
+      </head>
       <body
         className={`${dmSans.variable} antialiased transition-colors duration-300`}
       >
