@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Github } from "lucide-react";
+import { ArrowLeft, Github, Play, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 const architecture = [
@@ -55,7 +55,7 @@ export default function SpamClassification() {
                     <p className="text-gray-400 dark:text-gray-500 max-w-2xl mx-auto text-sm md:text-base">
                         Enterprise spam detection using DistilBERT transformers, deployed on AWS SageMaker with Terraform infrastructure-as-code.
                     </p>
-                    <div className="mt-6">
+                    <div className="mt-6 flex items-center justify-center gap-4">
                         <a
                             href="https://github.com/NullBitZer0/spam-dl-aws"
                             target="_blank"
@@ -64,6 +64,24 @@ export default function SpamClassification() {
                         >
                             <Github className="h-4 w-4" />
                             View on GitHub
+                        </a>
+                        <a
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+                        >
+                            <Play className="h-4 w-4" />
+                            Watch Demo
+                        </a>
+                        <a
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+                        >
+                            <ExternalLink className="h-4 w-4" />
+                            Read on Medium
                         </a>
                     </div>
                 </motion.div>
