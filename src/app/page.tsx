@@ -277,7 +277,12 @@ export default function Home() {
 
                 <Link href="/spam-classification" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-black dark:text-white">SpamShield AI</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-black dark:text-white">SpamShield AI</span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+                        In Progress
+                      </span>
+                    </div>
                     <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
