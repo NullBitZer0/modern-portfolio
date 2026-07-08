@@ -12,11 +12,14 @@ Focused on bridging the gap between complex AI systems and practical user applic
 ### Real-Time Fraud Detection
 Production-grade credit card fraud detection system with CatBoost classifier, Feast online/offline feature store, Apache Kafka streaming, 3-tier decision framework, and automated MLOps lifecycle. Sub-15ms P95 latency, 0.94 PR-AUC.
 
-### AI Portfolio Assistant
-An interactive RAG-based assistant that answers questions about my skills and experience using local documents. Built with LangChain, vector stores, and a modern chat interface.
+### AI Portfolio Assistant (Live)
+Agentic RAG system with LangGraph, OpenSearch hybrid search (BM25 + k-NN), Docling document extraction, Cohere reranking, Gemini fallback, and RAGAS evaluation. Deployed on Coolify with Docker.
 
-### NVIDIA Report Analysis
-NLP-based NVIDIA report analysis using FinBERT sentiment scoring, web scraping, LSTM OHLC prediction, and Telegram alerts.
+### SpamShield AI (In Progress)
+Enterprise spam detection using DistilBERT, FastAPI, Streamlit, deployed on AWS SageMaker with Terraform IaC. 99.5% accuracy, 98.2% F1 score.
+
+### AWS Data Pipeline (In Progress)
+Automated serverless data pipeline ingesting Finnhub stock data via EventBridge and Lambda, transformed with Glue and Athena, visualised with QuickSight dashboards.
 
 ## Education
 
@@ -24,28 +27,28 @@ NLP-based NVIDIA report analysis using FinBERT sentiment scoring, web scraping, 
 **BSc (Hons) in Information Technology**
 Currently pursuing — Expected 2027
 
+## Certifications
+
+- AWS Machine Learning Associate
+
+## Leadership & Achievements
+
+- Karate Black Belt — 1st Dan
+- Cadet Sergeant
+
 ## Tech Stack
 
 **Languages:** Python, TypeScript, JavaScript, Java, R
 **Frontend:** React, Next.js, Tailwind CSS
-**Backend & DB:** Node.js, FastAPI, PostgreSQL, MongoDB, Redis, Qdrant
-**AI & ML:** Hugging Face, LangChain, LlamaIndex, OpenAI, TensorFlow, PyTorch, scikit-learn, ONNX, SageMaker, Ollama
-**MLOps:** Langfuse, MLflow, DAGsHub, DVC, Apache Spark, Databricks, Apache Airflow
+**Backend & DB:** Node.js, FastAPI, PostgreSQL, MongoDB, Redis, OpenSearch
+**AI & ML:** Hugging Face, LangChain, OpenAI, TensorFlow, PyTorch, scikit-learn, ONNX, SageMaker, Ollama
+**MLOps:** Langfuse, MLflow, DAGsHub, DVC, Apache Spark, AWS Glue, Redshift, Apache Airflow
 **Infra:** Docker, AWS, S3, Coolify, Vercel, Git, GitHub, Linux
 
 ## Library
 
-### Dev
-- Designing Data-Intensive Applications — Martin Kleppmann
-- Clean Code — Robert C. Martin
-- The Pragmatic Programmer — David Thomas & Andrew Hunt
-- System Design Interview — Alex Xu
-
-### AI & ML
-- Hands-On Machine Learning — Aurélien Géron
-- Deep Learning — Ian Goodfellow et al.
-- AI Superpowers — Kai-Fu Lee
-- The Hundred-Page Machine Learning Book — Andriy Burkov
+- Hands-On Machine Learning with PyTorch and TensorFlow — Aurélien Géron
+- Designing Machine Learning Systems — Chip Huyen
 
 ## Interests
 

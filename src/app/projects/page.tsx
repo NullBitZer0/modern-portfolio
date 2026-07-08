@@ -33,7 +33,7 @@ const categories: { name: string; description: string; projects: Project[] }[] =
         tech: ["FastAPI", "LangChain", "Groq", "ChromaDB", "Langfuse"],
         link: "/ai-assistant",
         github: "https://github.com/NullBitZer0/ai-portfolio-assistant",
-        status: "in-progress",
+        status: "live",
         prompt: "Tell me about the Agentic RAG Portfolio Assistant project — what tech does it use and how does it work?",
       },
       {
@@ -42,6 +42,14 @@ const categories: { name: string; description: string; projects: Project[] }[] =
         tech: ["DistilBERT", "PyTorch", "FastAPI", "Streamlit", "SageMaker", "Terraform", "Docker"],
         link: "/spam-classification",
         github: "https://github.com/NullBitZer0/spam-dl-aws",
+        status: "in-progress",
+      },
+      {
+        title: "AWS Data Pipeline",
+        description: "Automated data pipeline using EventBridge, Lambda, Athena, Glue, and QuickSight for serverless analytics.",
+        tech: ["EventBridge", "Lambda", "Athena", "Glue", "QuickSight", "S3"],
+        github: "https://github.com/NullBitZer0/aws-data-pipeline",
+        status: "in-progress",
       },
     ],
   },
@@ -258,6 +266,17 @@ export default function ProjectsPage() {
                           )}
                         </div>
                         <div className="flex items-center gap-2">
+                          {project.prompt && (
+                            <button
+                              onClick={() => {
+                                window.dispatchEvent(new CustomEvent("open-chat-with-message", { detail: project.prompt }));
+                              }}
+                              className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors"
+                            >
+                              <Bot className="h-3 w-3" />
+                              Ask AI
+                            </button>
+                          )}
                           {project.github && (
                             <a
                               href={project.github}
@@ -275,17 +294,6 @@ export default function ProjectsPage() {
                             >
                               <ExternalLink className="h-4 w-4" />
                             </Link>
-                          )}
-                          {project.prompt && (
-                            <button
-                              onClick={() => {
-                                window.dispatchEvent(new CustomEvent("open-chat-with-message", { detail: project.prompt }));
-                              }}
-                              className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors"
-                            >
-                              <Bot className="h-3 w-3" />
-                              Ask AI
-                            </button>
                           )}
                         </div>
                       </div>
