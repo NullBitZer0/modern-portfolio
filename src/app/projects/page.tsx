@@ -45,7 +45,7 @@ const categories: { name: string; description: string; projects: Project[] }[] =
         status: "in-progress",
       },
       {
-        title: "AWS Data Pipeline",
+        title: "Real-Time Stock Market Analytics Pipeline on AWS",
         description: "Automated data pipeline using EventBridge, Lambda, Athena, Glue, and QuickSight for serverless analytics.",
         tech: ["EventBridge", "Lambda", "Athena", "Glue", "QuickSight", "S3"],
         github: "https://github.com/NullBitZer0/aws-data-pipeline",
