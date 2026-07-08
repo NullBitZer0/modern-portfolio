@@ -293,7 +293,7 @@ export default function Home() {
                 <Link href="/aws-data-pipeline" className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50/50 dark:hover:bg-zinc-900/50">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-black dark:text-white">AWS Data Pipeline</span>
+                      <span className="font-medium text-black dark:text-white">Real-Time Stock Market Analytics Pipeline on AWS</span>
                       <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
                         In Progress
                       </span>
