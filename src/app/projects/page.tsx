@@ -46,10 +46,17 @@ const categories: { name: string; description: string; projects: Project[] }[] =
       },
       {
         title: "Real-Time Stock Market Analytics Pipeline on AWS",
-        description: "Automated data pipeline using EventBridge, Lambda, Athena, Glue, and QuickSight for serverless analytics.",
+        description: "Automated serverless data pipeline ingesting Finnhub stock data via EventBridge and Lambda, transformed with Glue and Athena, visualised with QuickSight dashboards.",
         tech: ["EventBridge", "Lambda", "Athena", "Glue", "QuickSight", "S3"],
         github: "https://github.com/NullBitZer0/aws-data-pipeline",
         status: "in-progress",
+      },
+      {
+        title: "Movie Recommendation System",
+        description: "End-to-end recommendation engine with content-based filtering (TF-IDF), collaborative filtering (SVD), and popularity-based ranking on MovieLens 100K. Interactive Streamlit app with RMSE, Precision@10, NDCG evaluation.",
+        tech: ["Python", "Scikit-learn", "Surprise", "TF-IDF", "Streamlit"],
+        link: "/movie-recommendation",
+        github: "https://github.com/NullBitZer0/movie-recsys",
       },
     ],
   },
